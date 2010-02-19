@@ -1,0 +1,67 @@
+High Level happy path user case example.
+
+Bob starts L5R Helper.
+Bob chooses to Load Existing character.
+Bob selects Toki from the list of his characters.
+Bob see's toki's stats, A box with 'free raises' filled with a '2', misc bonus with a '0' a Target number window, a dropdown box populated with 'Katana', 'Wak', 'Obsidian Knife' 
+A confidence window prefilled with '95%'  an unchecked 'use luck' checkbox and a Spend Void window with a '0' in it.
+On the bottom half of the screen are a series of boxes under the heading 'Templates' labeled "Opponent Missed", "Sozen Str/Agi +5" and
+ "Add New Template" all unselected.  Bob selects Opponent Missed template and the free raises box changes from '2' to '6'.
+ Bob enters 55 for Target Tn and hits calculate. The program pops up that '5 raises can be called with a 95% chance of hitting' Bob presses Ok and is returned to
+ the previous screen.
+
+
+
+
+
+AppMainScreen
+    Load Existing
+    
+    Create New
+    
+    <Further functionality, share characters over bluetooth?>
+    
+    
+Create New ->
+    Prompt for Name (20 characters) Default View (combat or casting)
+        Collect attributes. Do we want to collect weapon skills if they selected casting at this time? get spellcasting skill and emphasis.
+        Do We want to keep track of techniques or let users handle that? Weapon quality?
+        When Complete, Load character
+                
+Load Existing -> 
+    Display list of profile names. 
+    
+Character Created or Loaded ->
+    See Use Case, will fill out later.
+    
+    
+DB Schema - Profiles are one per character they store baseline stats and skills. There are Many to one templates to profiles. 
+A template is a set of bonuses/penalties that can be used to represent changes in combat. (I'm going slower then someone, or perhaps if I have a shuggie stat buff)
+tblProfiles
+    NOT NULL
+    oid number(10)
+    name varchar(20)
+    defaultViewId number(10)
+    NULLABLE
+    Earth Ring, Water Ring, Fire Ring, Air Ring, Void Ring, Reflexes, Agility number(4)
+    luck boolean
+    GP boolean
+    Free raises to hit
+    Link to a weapons Table which has multiple entries recording name, skill, and emphasis boolean.
+tblDefaultViews
+    NOT NULL
+    oid number(10)
+    name varchar(20)
+tblWeaponSkills
+tblTemplates
+    NOT NULL
+    oid
+    profileId
+    NULLABLE
+    Earth Ring, Water Ring, Fire Ring, Air Ring, Strength, Agility number(4)
+    weapon skill modifier(rare?)
+    rolled dice
+    kept dice
+    Others?
+    
+    
