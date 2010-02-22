@@ -17,26 +17,8 @@ public class Raises {
 
 	public static int calculateRaises(int target, Roll roll, double confidence) {
 
-		Histogram h = loadHistogram(roll);
+		Histogram h = new Histogram(roll);
 		int highest = h.getHighestTN(confidence);
 		return (highest - target) / 5;
-	}
-
-	// TODO: make this less hideous
-	private static Histogram loadHistogram(Roll roll) {
-
-		DBHelper db = new DBHelper(new HomeActivity());
-		try {
-			db.createDataBase();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		db.openDataBase();
-		SQLiteDatabase db2 = db.getReadableDatabase();
-		Cursor cursor = db2.rawQuery(
-				"select histogram from rolls where kept = ? and rolled = ?",
-				new String[] { String.valueOf(roll.getRolled()),
-						String.valueOf(roll.getKept()) });
-		return new Histogram(cursor.getBlob(0));
 	}
 }

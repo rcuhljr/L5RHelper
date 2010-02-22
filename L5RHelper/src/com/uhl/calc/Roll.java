@@ -5,10 +5,31 @@ public class Roll {
 
 	private int rolled;
 	private int kept;
+	private int luck;
+	private int gp;
 
-	public Roll(int rolled, int kept) {
+	public Roll(int rolled, int kept, int luck, int gp) {
 		setRolled(rolled);
 		setKept(kept);
+		setLuck(luck);
+		setGp(gp);
+	}
+
+	public void setGp(int gp) {
+		this.gp = gp;
+		
+	}
+	
+	public int getGp(){
+		return gp;
+	}	
+
+	public void setLuck(int luck) {
+		this.luck = luck;
+	}
+	
+	public int getLuck(){
+		return luck;
 	}
 
 	public void setRolled(int rolled) {
