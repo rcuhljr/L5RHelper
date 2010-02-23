@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 //adapted from writeup at: http://www.reigndesign.com/blog/using-your-own-sqlite-database-in-android-applications/
 public class DBHelper extends SQLiteOpenHelper {
 
-	private static final String DB_NAME = "data";
+	private static final String DB_NAME = "data.db3";
 	private static final String DB_PATH = "/data/data/com.uhl/databases/";
 	private SQLiteDatabase myDataBase;
 	private final Context myContext;

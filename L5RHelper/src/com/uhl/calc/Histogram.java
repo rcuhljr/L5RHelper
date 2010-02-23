@@ -13,7 +13,8 @@ import com.uhl.db.DBHelper;
 
 public class Histogram {
 
-	private Double[] histogram;
+	private int[] histogram;
+	private static int scalingFactor = 10000;
 	
 	public Histogram(byte[] data) {
 		LoadHistogram(data);
@@ -39,12 +40,12 @@ public class Histogram {
 	}
 	
 	private void LoadHistogram(byte[] data){
-		Double[] result = new Double[0];
+		int[] result = new int[0];
 		ByteArrayInputStream bIn = new ByteArrayInputStream(data);
     	ObjectInputStream in;
 		try {
 			in = new ObjectInputStream(bIn);		
-			result = (Double[]) in.readObject();
+			result = (int[]) in.readObject();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,13 +53,13 @@ public class Histogram {
 	}
 
 
-	public int getHighestTN(double confidence) {
+	public int getHighestTN(int confidence) {
 		int result = 0;
+		int targetValue = (this.scalingFactor - confidence*(this.scalingFactor/100)); 
 		if(this.histogram.length == 0)
 			return result;
-		double accum = 0.0;
-		//Conservative check. If confidence is 95 and one TN is 94.8 and the other 95.2 it picks 95.2
-		while(confidence <= (1.0-accum)){ 
+		int accum = 0;
+		while(confidence > accum){ 
 			result++;
 			accum += this.histogram[result];			
 		}		

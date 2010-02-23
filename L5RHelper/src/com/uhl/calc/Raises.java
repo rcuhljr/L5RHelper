@@ -12,10 +12,10 @@ public class Raises {
 
 	public static int calculateRaises(int target, Roll roll) {
 
-		return calculateRaises(target, roll, 0.95);
+		return calculateRaises(target, roll, 95);
 	}
 
-	public static int calculateRaises(int target, Roll roll, double confidence) {
+	public static int calculateRaises(int target, Roll roll, int confidence) {
 
 		Histogram h = new Histogram(roll);
 		int highest = h.getHighestTN(confidence);
