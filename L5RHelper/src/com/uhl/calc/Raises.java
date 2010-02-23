@@ -20,6 +20,8 @@ public class Raises {
 
 		Histogram h = new Histogram(roll, ctx);
 		int highest = h.getHighestTN(confidence);
+		if(highest <= target)
+			return 0;
 		return (highest - target) / 5;
 	}
 }
