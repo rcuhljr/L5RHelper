@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
 import java.io.StreamCorruptedException;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -20,8 +21,8 @@ public class Histogram {
 		LoadHistogram(data);
 	}
 	
-	public Histogram(Roll roll){
-		DBHelper db = new DBHelper(new HomeActivity());
+	public Histogram(Roll roll, Context ctx){
+		DBHelper db = new DBHelper(ctx);
 		try {
 			db.createDataBase();
 		} catch (IOException e) {
@@ -30,13 +31,14 @@ public class Histogram {
 		db.openDataBase();
 		SQLiteDatabase db2 = db.getReadableDatabase();
 		Cursor cursor = db2.rawQuery(
-				"select histogram from rolls where kept = ? and rolled = ? and gp = ? and luck = ?",
+				"select histogram from rolls where rolled = ? and kept = ? and gp = ? and luck = ?",
 				new String[] { String.valueOf(roll.getRolled()),
 						String.valueOf(roll.getKept()),
 						String.valueOf(roll.getGp()),
 						String.valueOf(roll.getLuck())});
-		db.close();
+		cursor.moveToFirst();
 		LoadHistogram(cursor.getBlob(0));		
+		db.close();
 	}
 	
 	private void LoadHistogram(byte[] data){
@@ -59,7 +61,7 @@ public class Histogram {
 		if(this.histogram.length == 0)
 			return result;
 		int accum = 0;
-		while(confidence > accum){ 
+		while(targetValue > accum){ 
 			result++;
 			accum += this.histogram[result];			
 		}		

@@ -1,5 +1,6 @@
 package com.uhl.db;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,8 +37,15 @@ public class DBHelper extends SQLiteOpenHelper {
 			// the default system path
 			// of your application so we are gonna be able to overwrite that
 			// database with our database.
+			
+			File f = new File(DB_PATH);
+			if (!f.exists()) {
+				f.mkdir();
+			}
+			
+			
 			this.getReadableDatabase();
-
+			this.close();
 			try {
 
 				copyDataBase();
@@ -124,11 +132,12 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase arg0) {
+	public void onCreate(SQLiteDatabase db) {
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
+		onCreate(arg0);
 	}
 
 }
