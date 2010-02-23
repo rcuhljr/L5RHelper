@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="load_existing">Load Existing Character</string>
+    <string name="CreateNew">Create New Character</string>
     <string name="hello">Hello World, HomeActivity!</string>
     <string name="app_name">L5RHelper</string>
 </resources>
