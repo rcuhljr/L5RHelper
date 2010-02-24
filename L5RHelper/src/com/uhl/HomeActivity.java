@@ -1,6 +1,7 @@
 package com.uhl;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,8 +30,12 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View e) {		
-		Button button = GetButton(e.getId());
-		button.setText(button.getText() + "1");
+		Button button = GetButton(e.getId());		
+		switch(button.getId()){
+			case R.id.create_new:this.startActivity(new Intent(this, NewCharacterActivity.class));
+			default: break;
+		}
+		
 	}
 	
 }

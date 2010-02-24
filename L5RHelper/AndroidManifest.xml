@@ -12,7 +12,8 @@
             </intent-filter>
         </activity>
 
-    </application>
+    <activity android:name=".NewCharacterActivity" android:label="@string/CreateNew"></activity>
+</application>
     <uses-sdk android:minSdkVersion="6" />
 
 </manifest> 
