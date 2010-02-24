@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="create_char">Create Character</string>
+    <string name="submit">Submit</string>
+    <string name="melee">Melee</string>
+    <string name="caster">Caster</string>
+    <string name="char_name">Character Name</string>
     <string name="load_existing">Load Existing Character</string>
     <string name="CreateNew">Create New Character</string>
     <string name="hello">Hello World, HomeActivity!</string>

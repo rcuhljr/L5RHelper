@@ -32,10 +32,14 @@ public class HomeActivity extends Activity implements OnClickListener {
 	public void onClick(View e) {		
 		Button button = GetButton(e.getId());		
 		switch(button.getId()){
-			case R.id.create_new:this.startActivity(new Intent(this, NewCharacterActivity.class));
+			case R.id.create_new:StartActivity(NewCharacterActivity.class);
 			default: break;
-		}
-		
+		}		
+	}
+
+
+	private void StartActivity(Class<NewCharacterActivity> classInput) {
+		this.startActivity(new Intent(this, classInput));		
 	}
 	
 }
