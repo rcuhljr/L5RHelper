@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import com.uhl.calc.Roll;
+
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -23,6 +26,11 @@ public class DBHelper extends SQLiteOpenHelper {
 	public DBHelper(Context context) {
 		super(context, DB_NAME, null, 1);
 		myContext = context;
+		try {
+			this.createDataBase();
+		} catch (IOException e) { 
+			e.printStackTrace();
+		}
 	}
 
 	public void createDataBase() throws IOException {
@@ -138,6 +146,53 @@ public class DBHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
 		onCreate(arg0);
+	}
+	//Is this the proper place for these?
+	public void saveProfile(Profile profile){
+		
+		String insertString = "";
+		String[] values = new String[0];
+		
+		if(profile.getId() == -1){
+			//create
+			insertString = "insert into Profiles values (null,?,?,?,?,?,?,?,?,?,?,?)";
+			values = new String[] {String.valueOf(profile.getName()),String.valueOf(profile.getDefaultViewId()),
+					String.valueOf(profile.getEarthRing()),String.valueOf(profile.getWaterRing()),String.valueOf(profile.getFireRing()),
+					String.valueOf(profile.getAirRing()),String.valueOf(profile.getVoidRing()),String.valueOf(profile.getReflexes()),
+					String.valueOf(profile.getAgility()),String.valueOf(profile.getLuck()),String.valueOf(profile.getGp())};
+		}else
+		{
+			//update
+			insertString = "update Profiles set name = ?, defaultViewId = ?, earth = ?, water = ?, fire = ?, air = ?, void = ?, reflexes = ?, agility = ?, luck = ?, gp = ?)";
+			values = new String[] {String.valueOf(profile.getId()),
+					String.valueOf(profile.getName()),String.valueOf(profile.getDefaultViewId()),
+					String.valueOf(profile.getEarthRing()),String.valueOf(profile.getWaterRing()),String.valueOf(profile.getFireRing()),
+					String.valueOf(profile.getAirRing()),String.valueOf(profile.getVoidRing()),String.valueOf(profile.getReflexes()),
+					String.valueOf(profile.getAgility()),String.valueOf(profile.getLuck()),String.valueOf(profile.getGp())};
+		}		
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getWritableDatabase();
+		db2.execSQL(insertString, values);						
+		this.close();
+	}
+	
+	public Profile loadProfile(int id){
+		//#todo fix this.
+		return new Profile("default", DefaultViews.melee.getId());
+	}
+
+	public Cursor getHistogram(Roll roll) {
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getReadableDatabase();
+		Cursor cursor = db2.rawQuery(
+				"select histogram from rolls where rolled = ? and kept = ? and gp = ? and luck = ?",
+				new String[] { String.valueOf(roll.getRolled()),
+						String.valueOf(roll.getKept()),
+						String.valueOf(roll.getGp()),
+						String.valueOf(roll.getLuck())});
+		cursor.moveToFirst();
+		this.close();
+		return cursor;
 	}
 
 }

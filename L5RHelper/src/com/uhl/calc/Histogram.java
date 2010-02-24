@@ -23,20 +23,7 @@ public class Histogram {
 	
 	public Histogram(Roll roll, Context ctx){
 		DBHelper db = new DBHelper(ctx);
-		try {
-			db.createDataBase();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		db.openDataBase();
-		SQLiteDatabase db2 = db.getReadableDatabase();
-		Cursor cursor = db2.rawQuery(
-				"select histogram from rolls where rolled = ? and kept = ? and gp = ? and luck = ?",
-				new String[] { String.valueOf(roll.getRolled()),
-						String.valueOf(roll.getKept()),
-						String.valueOf(roll.getGp()),
-						String.valueOf(roll.getLuck())});
-		cursor.moveToFirst();
+		Cursor cursor = db.getHistogram(roll);
 		LoadHistogram(cursor.getBlob(0));		
 		db.close();
 	}
