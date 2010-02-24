@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/char_name_text" android:text="@string/char_name" android:layout_marginLeft="10px"></TextView>
+<EditText android:layout_height="wrap_content" android:id="@+id/char_name" android:layout_width="fill_parent" android:layout_below="@+id/char_name_text" android:inputType="text|textCapWords|textNoSuggestions|textPersonName"></EditText>
+
+
+<RadioGroup android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/char_name" android:id="@+id/radio_group" android:orientation="horizontal"><RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/melee" android:id="@+id/radio_melee" android:layout_marginLeft="10px"></RadioButton><RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radio_caster" android:text="@string/caster" android:layout_marginLeft="10px"></RadioButton></RadioGroup>
+
+
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/radio_group" android:id="@+id/submit_button" android:layout_centerHorizontal="true" android:text="@string/create_char"></Button>
+</RelativeLayout>
