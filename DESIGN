@@ -37,23 +37,24 @@ Character Created or Loaded ->
     
 DB Schema - Profiles are one per character they store baseline stats and skills. There are Many to one templates to profiles. 
 A template is a set of bonuses/penalties that can be used to represent changes in combat. (I'm going slower then someone, or perhaps if I have a shuggie stat buff)
-tblProfiles
+Profiles
     NOT NULL
     oid number(10)
     name varchar(20)
     defaultViewId number(10)
-    NULLABLE
-    Earth Ring, Water Ring, Fire Ring, Air Ring, Void Ring, Reflexes, Agility number(4)
     luck boolean
     GP boolean
-    Free raises to hit
+    NULLABLE
+    Earth Ring, Water Ring, Fire Ring, Air Ring, Void Ring, Reflexes, Agility number(4) (strength needs added if max damage is ever a concern.)
     Link to a weapons Table which has multiple entries recording name, skill, and emphasis boolean.
-tblDefaultViews
+DefaultViews
     NOT NULL
     oid number(10)
     name varchar(20)
-tblWeaponSkills
-tblTemplates
+WeaponSkills
+    NOT NULL
+    
+Templates
     NOT NULL
     oid
     profileId
