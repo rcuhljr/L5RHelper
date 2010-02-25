@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="load">Load a Profile</string>
     <string name="gp">Great Potential</string>
     <string name="luck">Luck</string>
     <string name="agility">Agility</string>
@@ -20,4 +21,5 @@
     <string name="CreateNew">Create New Character</string>
     <string name="hello">Hello World, HomeActivity!</string>
     <string name="app_name">L5RHelper</string>
+<string name="error_no_name">Name Cannot Be Blank</string>
 </resources>

@@ -13,6 +13,7 @@
         </activity>
 
     <activity android:name=".NewCharacterActivity" android:label="@string/CreateNew"></activity>
+<activity android:name=".LoadProfileView" android:label="@string/load"></activity>
 </application>
     <uses-sdk android:minSdkVersion="6" />
 

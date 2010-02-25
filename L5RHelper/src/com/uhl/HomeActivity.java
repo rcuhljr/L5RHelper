@@ -39,12 +39,13 @@ public class HomeActivity extends Activity implements OnClickListener {
 		Button button = this.<Button>GetView(e.getId());		
 		switch(button.getId()){
 			case R.id.create_new:StartActivity(NewCharacterActivity.class);
+			case R.id.load_existing:StartActivity(LoadProfileView.class);
 			default: break;
 		}		
 	}
 
 
-	private void StartActivity(Class<NewCharacterActivity> classInput) {
+	private void StartActivity(Class<?> classInput) {
 		this.startActivity(new Intent(this, classInput));		
 	}
 	

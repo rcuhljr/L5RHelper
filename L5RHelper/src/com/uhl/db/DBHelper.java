@@ -203,5 +203,14 @@ public class DBHelper extends SQLiteOpenHelper {
 		this.close();
 		return cursor;
 	}
+	
+	public Cursor GetProfiles(){
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getReadableDatabase();
+		Cursor cursor = db2.rawQuery("select _id, name from Profiles", new String[0]);
+		cursor.moveToFirst();
+		this.close();		
+		return cursor;
+	}	
 
 }
