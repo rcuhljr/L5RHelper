@@ -177,8 +177,17 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	public Profile loadProfile(int id){
-		//#todo fix this.
-		return new Profile("default", DefaultViews.melee.getId());
+		
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getReadableDatabase();
+		Cursor cursor = db2.rawQuery(
+				"select _id, name, defaultViewId, earth, water, fire, air, void, reflexes, agility, luck, gp from Profiles where _id = ?",
+				new String[] { String.valueOf(id)});
+		cursor.moveToFirst();
+		this.close();
+		Profile result = new Profile(cursor);
+		return result;
+		
 	}
 
 	public Cursor getHistogram(Roll roll) {
