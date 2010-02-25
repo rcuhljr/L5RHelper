@@ -44,7 +44,7 @@ public class Histogram {
 
 	public int getHighestTN(int confidence) {
 		int result = 0;
-		int targetValue = (this.scalingFactor - confidence*(this.scalingFactor/100)); 
+		int targetValue = (Histogram.scalingFactor - confidence*(Histogram.scalingFactor/100)); 
 		if(this.histogram.length == 0)
 			return result;
 		int accum = 0;

@@ -18,19 +18,25 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 
 	private void RegisterButtons() {
-		GetButton(R.id.create_new).setOnClickListener(this);
-		GetButton(R.id.load_existing).setOnClickListener(this);
+		(this.<Button>GetView(R.id.create_new)).setOnClickListener(this);
+		(this.<Button>GetView(R.id.load_existing)).setOnClickListener(this);
 	}
 
 
-	private Button GetButton(int id) {
-		return (Button)findViewById(id);
+	@SuppressWarnings("unchecked")
+	private <T extends View> T GetView(int id) {
+		T result = null;
+		try{			
+			result = (T)findViewById(id);}
+		catch(Exception e){			
+		}
+		return result;
 	}
 
 
 	@Override
 	public void onClick(View e) {		
-		Button button = GetButton(e.getId());		
+		Button button = this.<Button>GetView(e.getId());		
 		switch(button.getId()){
 			case R.id.create_new:StartActivity(NewCharacterActivity.class);
 			default: break;

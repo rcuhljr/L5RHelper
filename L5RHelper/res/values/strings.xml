@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="gp">Great Potential</string>
+    <string name="luck">Luck</string>
+    <string name="agility">Agility</string>
+    <string name="reflexes">Reflexes</string>
+    <string name="voidr">Void Ring</string>
+    
+    <string name="air">Air Ring</string>
+    <string name="fire">Fire Ring</string>
+    <string name="water">Water Ring</string>
+    <string name="earth">Earth Ring</string>
     <string name="debugtest">This is a Debug String</string>
     <string name="create_char">Create Character</string>
     <string name="submit">Submit</string>
