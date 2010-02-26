@@ -71,7 +71,7 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 
 
 	private int GetValue(int id) {
-		int result = -1;
+		int result = -1; //#todo find a better way to do this.
 		Spinner spinner = this.<Spinner>GetView(id);
 		String value = (String)spinner.getSelectedItem();
 		try {
