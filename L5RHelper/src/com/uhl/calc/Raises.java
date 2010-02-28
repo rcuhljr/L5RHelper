@@ -1,13 +1,6 @@
 package com.uhl.calc;
 
-import java.io.IOException;
-
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
-import com.uhl.HomeActivity;
-import com.uhl.db.DBHelper;
 
 public class Raises {
 

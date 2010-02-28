@@ -6,14 +6,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.uhl.calc.Roll;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.uhl.calc.Roll;
 
 //adapted from writeup at: http://www.reigndesign.com/blog/using-your-own-sqlite-database-in-android-applications/
 public class DBHelper extends SQLiteOpenHelper {

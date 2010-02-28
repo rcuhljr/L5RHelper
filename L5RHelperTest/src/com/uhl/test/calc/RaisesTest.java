@@ -1,7 +1,5 @@
 package com.uhl.test.calc;
 
-import junit.framework.TestCase;
-
 import android.content.Context;
 import android.test.AndroidTestCase;
 
@@ -11,10 +9,32 @@ import com.uhl.calc.Roll;
 public class RaisesTest extends AndroidTestCase {
 
 	public void testCalculateRaisesShouldHandle0Raises() {
-		
+
 		Context testContext = getContext();
-		int raises = Raises
-				.calculateRaises(testContext, Integer.MAX_VALUE, new Roll(10, 10, 0, 0));
+		int raises = Raises.calculateRaises(testContext, Integer.MAX_VALUE,
+				new Roll(10, 10, 0, 0));
 		assertEquals(0, raises);
+	}
+
+	public void testCalculateRaisesShouldHandleTN10() {
+		Context testContext = getContext();
+		int raises = Raises.calculateRaises(testContext, 10, new Roll(10, 10,
+				0, 0));
+		assertEquals(5, raises);
+	}
+
+	public void testCalculateRaisesShouldHandleGP() {
+		Context testContext = getContext();
+		int raises = Raises.calculateRaises(testContext, 10, new Roll(10, 10,
+				0, 1));
+		assertEquals(6, raises);
+	}
+
+	// TODO: I'm pretty sure about this number. Are we off by one, Rob?
+	public void testCalculateRaisesShouldUseCorrectConfidence() {
+		Context testContext = getContext();
+		int raises = Raises.calculateRaises(testContext, 10, new Roll(10, 10,
+				0, 0), 50);
+		assertEquals(10, raises);
 	}
 }

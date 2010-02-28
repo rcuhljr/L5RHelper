@@ -1,19 +1,18 @@
 package com.uhl;
 
-import com.uhl.db.DBHelper;
-import com.uhl.db.DefaultViews;
-import com.uhl.db.Profile;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.uhl.db.DBHelper;
+import com.uhl.db.DefaultViews;
+import com.uhl.db.Profile;
 
 public class NewCharacterActivity extends Activity implements OnClickListener{
     @Override

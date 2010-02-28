@@ -2,18 +2,18 @@ package com.uhl;
 
 import java.util.Hashtable;
 
-import com.uhl.db.DBHelper;
-
 import android.app.ListActivity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import android.view.View;
+
+import com.uhl.db.DBHelper;
 
 public class LoadProfileView extends ListActivity {
 	@Override
