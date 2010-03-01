@@ -48,6 +48,6 @@ public class Histogram {
 			result++;
 			accum += this.histogram[result];
 		}
-		return result - 1;
+		return result;
 	}
 }

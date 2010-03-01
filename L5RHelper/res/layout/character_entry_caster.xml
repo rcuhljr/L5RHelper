@@ -3,4 +3,26 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content">
+
+<TextView android:layout_width="wrap_content" android:id="@+id/text_earth" android:layout_height="wrap_content" android:text="@string/earth"></TextView>
+<Spinner android:layout_width="wrap_content" android:id="@+id/spin_earth" android:layout_height="wrap_content" android:entries="@array/traits" android:layout_below="@+id/text_earth"></Spinner>
+<TextView android:layout_width="wrap_content" android:id="@+id/text_air" android:layout_height="wrap_content" android:layout_below="@+id/spin_earth" android:text="@string/air"></TextView>
+<Spinner android:layout_width="wrap_content" android:id="@+id/spin_air" android:layout_height="wrap_content" android:layout_below="@+id/text_air" android:entries="@array/traits"></Spinner>
+
+
+<TextView android:layout_toRightOf="@+id/spin_air" android:layout_width="wrap_content" android:id="@+id/text_void" android:layout_height="wrap_content" android:text="@string/voidr" android:layout_below="@+id/spin_water"></TextView>
+<Spinner android:layout_toRightOf="@+id/spin_air" android:layout_width="wrap_content" android:id="@+id/spin_void" android:layout_height="wrap_content" android:layout_below="@+id/text_void" android:entries="@array/traits"></Spinner>
+<TextView android:layout_width="wrap_content" android:id="@+id/text_luck" android:layout_height="wrap_content" android:text="@string/luck" android:layout_below="@+id/spin_fire" android:layout_toRightOf="@+id/spin_void"></TextView>
+<Spinner android:layout_width="wrap_content" android:id="@+id/spin_luck" android:layout_height="wrap_content" android:layout_below="@+id/text_luck" android:entries="@array/yesno" android:layout_toRightOf="@+id/spin_void"></Spinner>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/spin_luck" android:layout_centerHorizontal="true" android:id="@+id/submit_melee_stats" android:text="@string/submit"></Button>
+<TextView android:layout_toRightOf="@+id/spin_earth" android:layout_width="wrap_content" android:id="@+id/text_water" android:layout_height="wrap_content" android:text="@string/water"></TextView>
+<Spinner android:layout_width="wrap_content" android:id="@+id/spin_water" android:layout_height="wrap_content" android:layout_below="@+id/text_water" android:layout_alignLeft="@+id/text_water" android:entries="@array/traits"></Spinner>
+<TextView android:layout_toRightOf="@+id/spin_water" android:layout_width="wrap_content" android:id="@+id/text_fire" android:layout_height="wrap_content" android:text="@string/fire"></TextView>
+<Spinner android:layout_toRightOf="@+id/spin_water" android:layout_width="wrap_content" android:id="@+id/spin_fire" android:layout_height="wrap_content" android:layout_below="@+id/text_fire" android:entries="@array/traits"></Spinner>
+
+
+
+
+
 </RelativeLayout>
+

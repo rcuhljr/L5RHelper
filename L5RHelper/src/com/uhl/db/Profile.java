@@ -6,16 +6,16 @@ public class Profile {
 	
 	private int _id = -1;
 	private String name;
-	private int defaultViewId;
-	private int earthRing;
-	private int waterRing;
-	private int fireRing;
-	private int airRing;
-	private int voidRing;
-	private int reflexes;
-	private int agility;
-	private int luck;
-	private int gp;
+	private int defaultViewId =1;
+	private int earthRing =0;
+	private int waterRing =0;
+	private int fireRing =0;
+	private int airRing =0;
+	private int voidRing =0;
+	private int reflexes =0;
+	private int agility =0;
+	private int luck =0;
+	private int gp =0;
 	
 	public Profile(String name, int defaultView){
 		this.setName(name);

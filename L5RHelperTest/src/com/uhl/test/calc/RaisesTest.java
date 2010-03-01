@@ -20,7 +20,7 @@ public class RaisesTest extends AndroidTestCase {
 		Context testContext = getContext();
 		int raises = Raises.calculateRaises(testContext, 10, new Roll(10, 10,
 				0, 0));
-		assertEquals(5, raises);
+		assertEquals(6, raises);
 	}
 
 	public void testCalculateRaisesShouldHandleGP() {

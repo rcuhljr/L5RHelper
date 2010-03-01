@@ -17,10 +17,10 @@ import com.uhl.db.Profile;
 public class NewCharacterActivity extends Activity implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);                
-        RegisterButtons();
+        super.onCreate(savedInstanceState);
         dbHelper = new DBHelper(this);
         setContentView(R.layout.new_character);
+        RegisterButtons();
     }
     
 	private Profile profile;

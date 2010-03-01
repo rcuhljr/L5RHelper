@@ -38,8 +38,8 @@ public class HomeActivity extends Activity implements OnClickListener {
 	public void onClick(View e) {		
 		Button button = this.<Button>GetView(e.getId());		
 		switch(button.getId()){
-			case R.id.create_new:StartActivity(NewCharacterActivity.class);
-			case R.id.load_existing:StartActivity(LoadProfileView.class);
+			case R.id.create_new:StartActivity(NewCharacterActivity.class);break;
+			case R.id.load_existing:StartActivity(LoadProfileView.class);break;
 			default: break;
 		}		
 	}
