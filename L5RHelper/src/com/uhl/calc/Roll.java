@@ -37,7 +37,7 @@ public class Roll {
 	}
 
 	public int getRolled() {
-		return rolled;
+		return Math.min(rolled,10);
 	}
 
 	public void setKept(int kept) {
@@ -45,6 +45,8 @@ public class Roll {
 	}
 
 	public int getKept() {
-		return kept;
+		int inflow = Math.max(this.rolled - 10,0);
+		int val = this.kept + (inflow+1)/2;		
+		return Math.min(val, 10);
 	}
 }

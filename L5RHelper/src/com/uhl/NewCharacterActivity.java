@@ -23,7 +23,7 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
         setContentView(R.layout.new_character);
         RegisterButtons();
     }
-    
+           
 	private Profile profile;
 	private DBHelper dbHelper;
 	
