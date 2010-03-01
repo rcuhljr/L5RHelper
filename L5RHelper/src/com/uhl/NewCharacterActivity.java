@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 		Button button = this.<Button>GetView(e.getId());		
 		switch(button.getId()){
 			case R.id.submit_button:SubmitPressed();break;
+			case R.id.submit_caster_stats:
 			case R.id.submit_melee_stats:SubmitToDB();break;
 			default: break;
 		}		
@@ -72,6 +74,8 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 	private int GetValue(int id) {
 		int result = -1; //#todo find a better way to do this.
 		Spinner spinner = this.<Spinner>GetView(id);
+		if(spinner == null)
+			return result;
 		String value = (String)spinner.getSelectedItem();
 		try {
 			result = Integer.parseInt(value);
@@ -86,7 +90,7 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 
 
 	private void SubmitPressed() {
-		TextView nameBox = this.<TextView>GetView(R.id.char_name_text); 
+		EditText nameBox = this.<EditText>GetView(R.id.char_name); 
 		String name = nameBox.getText().toString();
 		if(name == null || name == "" || name == getString(R.string.error_no_name)){
 			nameBox.setText(getString(R.string.error_no_name));
@@ -102,14 +106,28 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 				defaultView = DefaultViews.melee.getId();
 				profile = new Profile(name, defaultView);
 				SetupMeleeEntry();
+				break;
 			case R.id.radio_caster:
 				defaultView = DefaultViews.caster.getId();
 				profile = new Profile(name, defaultView);
-				setContentView(R.layout.character_entry_caster);
+				SetupCasterEntry();
+				break;
 			default:break;
 		}
 	}
 
+
+	private void SetupCasterEntry() {
+		setContentView(R.layout.character_entry_caster);
+		
+		(this.<Spinner>GetView(R.id.spin_earth)).setSelection(2);
+		(this.<Spinner>GetView(R.id.spin_water)).setSelection(2);
+		(this.<Spinner>GetView(R.id.spin_fire)).setSelection(2);
+		(this.<Spinner>GetView(R.id.spin_air)).setSelection(2);
+		(this.<Spinner>GetView(R.id.spin_void)).setSelection(2);
+		this.<Button>GetView(R.id.submit_caster_stats).setOnClickListener(this);
+				
+	}
 
 	private void SetupMeleeEntry() {
 		setContentView(R.layout.character_entry_melee);
