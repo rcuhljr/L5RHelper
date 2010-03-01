@@ -3,6 +3,7 @@ package com.uhl;
 import java.util.Hashtable;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -34,10 +35,15 @@ public class LoadProfileView extends ListActivity {
 	  lv.setOnItemClickListener(new OnItemClickListener() {
 	    public void onItemClick(AdapterView<?> parent, View view,
 	        int position, long id) {
-	      Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-	          Toast.LENGTH_SHORT).show();
+	    		StartActivity(CharacterOverviewActivity.class, profiles.get((String)((TextView) view).getText()));
 	    }
 	  });
+	}
+	
+	private void StartActivity(Class<?> classInput, Integer Id) {
+		Intent intent = new Intent(this, classInput);
+		intent.putExtra("ID", Id);
+		this.startActivity(intent);		
 	}
 	
 	private void BuildUserTable() {

@@ -30,7 +30,6 @@ public class RaisesTest extends AndroidTestCase {
 		assertEquals(6, raises);
 	}
 
-	// TODO: I'm pretty sure about this number. Are we off by one, Rob?
 	public void testCalculateRaisesShouldUseCorrectConfidence() {
 		Context testContext = getContext();
 		int raises = Raises.calculateRaises(testContext, 10, new Roll(10, 10,

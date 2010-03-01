@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<RelativeLayout android:id="@+id/RelativeLayout01" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"><TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:saveEnabled="false" android:text="a short string"></TextView>
+<TextView android:layout_width="wrap_content" android:layout_below="@+id/TextView01" android:layout_height="wrap_content" android:id="@+id/TextView03" android:text="a short string"></TextView><TextView android:layout_width="wrap_content" android:layout_below="@+id/TextView03" android:layout_height="wrap_content" android:id="@+id/TextView05" android:text="a short string"></TextView><TextView android:layout_width="wrap_content" android:layout_below="@+id/TextView05" android:layout_height="wrap_content" android:id="@+id/TextView07" android:text="a short string"></TextView><TextView android:layout_width="wrap_content" android:layout_below="@+id/TextView07" android:layout_height="wrap_content" android:id="@+id/TextView09" android:text="a short string"></TextView><TextView android:layout_width="wrap_content" android:layout_below="@+id/TextView09" android:layout_height="wrap_content" android:id="@+id/TextView11" android:text="a short string"></TextView><TextView android:layout_width="wrap_content" android:layout_toRightOf="@+id/TextView01" android:layout_height="wrap_content" android:id="@+id/TextView02" android:text="a short string" android:layout_marginLeft="15px"></TextView>
+
+
+
+<TextView android:layout_width="wrap_content" android:layout_below="@+id/TextView02" android:layout_height="wrap_content" android:id="@+id/TextView04" android:text="a short string" android:layout_marginLeft="15px" android:layout_toRightOf="@+id/TextView03"></TextView>
+
+<TextView android:layout_width="wrap_content" android:layout_below="@+id/TextView04" android:layout_height="wrap_content" android:id="@+id/TextView06" android:text="a short string" android:layout_toRightOf="@+id/TextView05" android:layout_marginLeft="15px"></TextView>
+
+<TextView android:layout_width="wrap_content" android:layout_below="@+id/TextView06" android:layout_height="wrap_content" android:id="@+id/TextView08" android:text="a short string" android:layout_toRightOf="@+id/TextView07" android:layout_marginLeft="15px"></TextView>
+
+<TextView android:layout_width="wrap_content" android:layout_below="@+id/TextView08" android:layout_height="wrap_content" android:id="@+id/TextView10" android:text="a short string" android:layout_toRightOf="@+id/TextView09" android:layout_marginLeft="15px"></TextView>
+
+<TextView android:layout_width="wrap_content" android:layout_below="@+id/TextView10" android:layout_height="wrap_content" android:id="@+id/TextView12" android:text="a short string" android:layout_toRightOf="@+id/TextView11" android:layout_marginLeft="15px"></TextView>
+</RelativeLayout>

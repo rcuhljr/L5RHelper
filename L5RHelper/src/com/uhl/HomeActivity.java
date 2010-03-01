@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class HomeActivity extends Activity implements OnClickListener {
+public class HomeActivity extends Activity implements OnClickListener, L5RActivity  {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 
 	@SuppressWarnings("unchecked")
-	private <T extends View> T GetView(int id) {
+	public <T extends View> T GetView(int id) {
 		T result = null;
 		try{			
 			result = (T)findViewById(id);}

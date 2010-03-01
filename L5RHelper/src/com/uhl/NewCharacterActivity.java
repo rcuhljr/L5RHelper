@@ -80,9 +80,9 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 		try {
 			result = Integer.parseInt(value);
 		} catch (NumberFormatException e) {
-			if(value == "Yes")
+			if(value.equals("Yes"))
 				result = 1;
-			if(value == "No")
+			if(value.equals("No"))
 				result = 0;
 		}
 		return result;
