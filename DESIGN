@@ -3,10 +3,11 @@ High Level happy path user case example.
 Bob starts L5R Helper.
 Bob chooses to Load Existing character.
 Bob selects Toki from the list of his characters.
-Bob see's toki's stats, A box with 'free raises' filled with a '2', misc bonus with a '0' a Target number window, a dropdown box populated with 'Katana', 'Wak', 'Obsidian Knife' 
-A confidence window prefilled with '95%'  an unchecked 'use luck' checkbox and a Spend Void window with a '0' in it.
-On the bottom half of the screen are a series of boxes under the heading 'Templates' labeled "Opponent Missed", "Sozen Str/Agi +5" and
- "Add New Template" all unselected.  Bob selects Opponent Missed template and the free raises box changes from '2' to '6'.
+Bob see's toki's roll,  misc bonus window with a '0' a Target number window,
+A confidence window prefilled with '95%'  an unchecked 'use luck' checkbox   
+On the bottom half of the screen are a series of boxes under the heading 'Templates' labeled "katana" "extra attack" "void" "bitterlies x1" "bitterlies x2"
+"bitterlies x3" "bitterlies x4" "Opponent Missed", "Sozen Str/Agi +5" and
+ "Add New Template" all unselected except katana.  Bob selects Opponent Missed template and the total roll shows +20 more static bonus
  Bob enters 55 for Target Tn and hits calculate. The program pops up that '5 raises can be called with a 95% chance of hitting' Bob presses Ok and is returned to
  the previous screen.
 
@@ -16,18 +17,18 @@ On the bottom half of the screen are a series of boxes under the heading 'Templa
 
 AppMainScreen
     Load Existing
-    
-    Create New
-    
-    Manage Characters (namely deletion for now) Or make this part of loaded character screen.
+        ->Manage Characters (namely deletion for now) 
+        ->Manage templates (view, create, delete and set as default or not)
+
+
+    Create New      
     
     <Further functionality, share characters over bluetooth?>
     
     
 Create New ->
     Prompt for Name (20 characters) Default View (combat or casting)
-        Collect attributes. Do we want to collect weapon skills if they selected casting at this time? get spellcasting skill and emphasis.
-        Do We want to keep track of techniques or let users handle that? Weapon quality?
+        Collect attributes. (Rings for casters. Ref and agi for combat. GP and luck for bushi, luck for casters)        
         When Complete, Load character
                 
 Load Existing -> 
@@ -47,25 +48,48 @@ Profiles
     luck boolean
     GP boolean
     NULLABLE
-    Earth Ring, Water Ring, Fire Ring, Air Ring, Void Ring, Reflexes, Agility number(4) (strength needs added if max damage is ever a concern.)
-    Link to a weapons Table which has multiple entries recording name, skill, and emphasis boolean.
+    Earth Ring, Water Ring, Fire Ring, Air Ring, Void Ring, Reflexes, Agility number(4) (strength needs added if max damage is ever a concern.)    
+    defaultFavoriteId
 DefaultViews
     NOT NULL
     oid number(10)
     name varchar(20)
-WeaponSkills
-    NOT NULL
-    
+--WeaponSkills MERGE INTO TEMPLATES
+  
+Favorites? Entry linking a profile to favorite combos with one name with one RollId and multiple/no templates
+    oid
+    profileId
+    FavoriteName 
+    RollId 
+    Template    
+
+EG      1, 1, Normal, 1, 1 
+        2, 1, Normal, 1, 2 
+        3, 1, Normal, 1, 4
+        4, 1, Double, 2, 1
+        5, 1, Double, 2, 3
+
+rollChoices
+    oid
+    Confidence
+    misc value
+    useluck    
+  
 Templates
     NOT NULL
     oid
     profileId
     NULLABLE
     Earth Ring, Water Ring, Fire Ring, Air Ring, Strength, Agility number(4)
-    weapon skill modifier(rare?)
+    weapon skill level
+    isGpSkill?
+    FreeRaises
     rolled dice
     kept dice
-    Others?
+TemplateRing/TraitBonus
+    TemplateId
+    Ring/traitId
+    multiplier
     
     
 #TODO
