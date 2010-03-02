@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="delete_char">Delete Character</string>
+    <string name="return_main">Return to Start</string>
     <string name="debugdump">Character Data</string>
     <string name="load">Load a Profile</string>
     <string name="gp">Great Potential</string>

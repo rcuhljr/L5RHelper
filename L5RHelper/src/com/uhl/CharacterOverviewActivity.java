@@ -7,9 +7,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.style.UpdateAppearance;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class CharacterOverviewActivity extends Activity {
+public class CharacterOverviewActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,8 +19,23 @@ public class CharacterOverviewActivity extends Activity {
         profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
         setContentView(R.layout.display_profile_data);
         DisplayData();        
-      //  RegisterButtons();
+        RegisterButtons();
     }
+    
+	private void RegisterButtons() {
+		(this.<Button>GetView(R.id.return_main)).setOnClickListener(this);
+		(this.<Button>GetView(R.id.delete_char)).setOnClickListener(this);
+	}
+	
+	@Override
+	public void onClick(View e) {		
+		Button button = this.<Button>GetView(e.getId());		
+		switch(button.getId()){
+			case R.id.return_main:this.setResult(Activity.RESULT_OK); this.finish(); //refactor to return a success/canceled. on success open load menu.
+			case R.id.delete_char: dbHelper.deleteProfile(profile.getId()); this.setResult(Activity.RESULT_OK); this.finish(); 
+			default: break;
+		}		
+	}
     
 	private void DisplayData() {
 	

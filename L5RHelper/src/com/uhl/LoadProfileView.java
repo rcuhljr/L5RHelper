@@ -35,7 +35,9 @@ public class LoadProfileView extends ListActivity {
 	  lv.setOnItemClickListener(new OnItemClickListener() {
 	    public void onItemClick(AdapterView<?> parent, View view,
 	        int position, long id) {
-	    		StartActivity(CharacterOverviewActivity.class, profiles.get((String)((TextView) view).getText()));
+	    		int value = profiles.get((String)((TextView) view).getText());
+	    		if ( value == -1) return;
+	    		StartActivity(CharacterOverviewActivity.class, value );
 	    }
 	  });
 	}
@@ -43,7 +45,13 @@ public class LoadProfileView extends ListActivity {
 	private void StartActivity(Class<?> classInput, Integer Id) {
 		Intent intent = new Intent(this, classInput);
 		intent.putExtra("ID", Id);
-		this.startActivity(intent);		
+		this.startActivityForResult(intent, 0);
+		
+	}	
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data){
+		//for now just return to the main activity, however we could stop here if they selected something to load a new character
+		this.finish();
 	}
 	
 	private void BuildUserTable() {

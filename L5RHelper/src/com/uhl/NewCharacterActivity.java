@@ -1,10 +1,12 @@
 package com.uhl;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -92,7 +94,7 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 	private void SubmitPressed() {
 		EditText nameBox = this.<EditText>GetView(R.id.char_name); 
 		String name = nameBox.getText().toString();
-		if(name == null || name == "" || name == getString(R.string.error_no_name)){
+		if(name == null || name .equals("") || name.equals(getString(R.string.error_no_name))){
 			nameBox.setText(getString(R.string.error_no_name));
 			return;
 		}
@@ -118,6 +120,7 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 
 
 	private void SetupCasterEntry() {
+		HideKeyboard();
 		setContentView(R.layout.character_entry_caster);
 		
 		(this.<Spinner>GetView(R.id.spin_earth)).setSelection(2);
@@ -125,11 +128,18 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 		(this.<Spinner>GetView(R.id.spin_fire)).setSelection(2);
 		(this.<Spinner>GetView(R.id.spin_air)).setSelection(2);
 		(this.<Spinner>GetView(R.id.spin_void)).setSelection(2);
-		this.<Button>GetView(R.id.submit_caster_stats).setOnClickListener(this);
-				
+		this.<Button>GetView(R.id.submit_caster_stats).setOnClickListener(this);	
+		
+	}
+	
+	private void HideKeyboard(){
+		InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		EditText textbox = this.<EditText>GetView(R.id.char_name);
+		imm.hideSoftInputFromWindow(textbox.getWindowToken(), 0);		
 	}
 
 	private void SetupMeleeEntry() {
+		HideKeyboard();
 		setContentView(R.layout.character_entry_melee);
 		(this.<Spinner>GetView(R.id.spin_earth)).setSelection(2);
 		(this.<Spinner>GetView(R.id.spin_water)).setSelection(2);
@@ -138,7 +148,8 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 		(this.<Spinner>GetView(R.id.spin_void)).setSelection(2);
 		(this.<Spinner>GetView(R.id.spin_reflexes)).setSelection(2);
 		(this.<Spinner>GetView(R.id.spin_agility)).setSelection(2);	
-		this.<Button>GetView(R.id.submit_melee_stats).setOnClickListener(this);	
+		this.<Button>GetView(R.id.submit_melee_stats).setOnClickListener(this);
+		
 	}
 
 

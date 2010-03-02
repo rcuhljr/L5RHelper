@@ -211,6 +211,16 @@ public class DBHelper extends SQLiteOpenHelper {
 		cursor.moveToFirst();
 		this.close();		
 		return cursor;
+	}
+
+	public void deleteProfile(int id) {				
+	
+		String deleteString = "delete from Profiles where _id = ?";
+		String[] values = new String[] {String.valueOf(id)};				
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getWritableDatabase();
+		db2.execSQL(deleteString, values);						
+		this.close();		
 	}	
 
 }
