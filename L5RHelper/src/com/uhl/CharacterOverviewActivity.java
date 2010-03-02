@@ -5,7 +5,6 @@ import com.uhl.db.Profile;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.style.UpdateAppearance;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;

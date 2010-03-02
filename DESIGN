@@ -68,3 +68,20 @@ Templates
     Others?
     
     
+#TODO
+    setup state maintenance to handle sleeping/suspending. from http://developer.android.com/reference/android/app/Activity.html#SavingPersistentState
+    "any edits a user makes are effectively made immediately without requiring an additional confirmation step. 
+     Supporting this model is generally a simple matter of following two rules:
+      
+      When creating a new document, the backing database entry or file for it is created immediately. 
+      For example, if the user chooses to write a new e-mail, a new entry for that e-mail is created as soon 
+      as they start entering data, so that if they go to any other activity after that point this e-mail will
+      now appear in the list of drafts.
+      
+      When an activity's onPause() method is called, it should commit to the backing content provider or file any
+      changes the user has made. This ensures that those changes will be seen by any other activity that is about 
+      to run. You will probably want to commit your data even more aggressively at key times during your activity's
+      lifecycle: for example before starting a new activity, before finishing your own activity, when the user switches 
+      between input fields, etc."
+
+    

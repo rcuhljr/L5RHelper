@@ -2,7 +2,6 @@ package com.uhl;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.uhl.db.DBHelper;
 import com.uhl.db.DefaultViews;
@@ -34,6 +32,7 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 		this.<Button>GetView(R.id.submit_button).setOnClickListener(this);		
 	}
 	
+	@SuppressWarnings("unchecked")
 	private <T extends View> T GetView(int id) {
 		try{
 			return (T)findViewById(id);}
@@ -150,11 +149,6 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 		(this.<Spinner>GetView(R.id.spin_agility)).setSelection(2);	
 		this.<Button>GetView(R.id.submit_melee_stats).setOnClickListener(this);
 		
-	}
-
-
-	private void StartActivity(Class<NewCharacterActivity> classInput) {
-		this.startActivity(new Intent(this, classInput));		
 	}
 
 }
