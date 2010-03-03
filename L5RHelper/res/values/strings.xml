@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="confidence">Hit Probability(1-100)</string>
+    <string name="default_confidence">95</string>
+    <string name="roll">Roll:</string>
+    <string name="character_overview">Character Overview</string>
+    <string name="roll_calculations">Roll Calculations</string>
+    <string name="roll_calc">Roll Calculator</string>
+    <string name="manage_char">Manage Character</string>
     <string name="delete_char">Delete Character</string>
     <string name="return_main">Return to Start</string>
     <string name="debugdump">Character Data</string>

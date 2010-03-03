@@ -7,12 +7,22 @@ public class Roll {
 	private int kept;
 	private int luck;
 	private int gp;
+	private int statMod;
 
-	public Roll(int rolled, int kept, int luck, int gp) {
+	public Roll(int rolled, int kept, int luck, int gp){
+		this(rolled, kept, 0, luck, gp);
+	}
+	
+	public Roll(int rolled, int kept){
+		this(rolled, kept, 0, 0, 0);
+	}
+	
+	public Roll(int rolled, int kept, int statMod, int luck, int gp) {
 		setRolled(rolled);
 		setKept(kept);
 		setLuck(luck);
 		setGp(gp);
+		setStatMod(statMod);
 	}
 
 	public void setGp(int gp) {
@@ -46,7 +56,29 @@ public class Roll {
 
 	public int getKept() {
 		int inflow = Math.max(this.rolled - 10,0);
-		int val = this.kept + (inflow+1)/2;		
+		int val = this.kept + (inflow)/2;		
 		return Math.min(val, 10);
 	}
+
+	public void setStatMod(int statMod) {
+		this.statMod = statMod;
+	}
+
+	public int getStatMod() {
+		int inflow = Math.max(this.rolled - 10,0);
+		int val = this.kept + (inflow)/2;
+		val = Math.max(val-10, 0)*5;		
+		return val + this.statMod;
+	}
+	
+	public String toString(){
+		int mod = this.getStatMod();
+		if(mod > 0){		
+			return this.getRolled()+"K"+this.getKept()+"+"+this.getStatMod();
+		}else if (mod < 0){
+			return this.getRolled()+"K"+this.getKept()+this.getStatMod();
+		}else{		
+			return this.getRolled()+"K"+this.getKept();
+		}
+	}	
 }

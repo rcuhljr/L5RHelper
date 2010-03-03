@@ -6,6 +6,7 @@ import com.uhl.db.Profile;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,16 +50,28 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
 	private void RegisterButtons() {
 		(this.<Button>GetView(R.id.return_main)).setOnClickListener(this);
 		(this.<Button>GetView(R.id.delete_char)).setOnClickListener(this);
+		(this.<Button>GetView(R.id.go_calculate)).setOnClickListener(this);
+		(this.<Button>GetView(R.id.manage_character)).setOnClickListener(this);
 	}
 	
 	@Override
 	public void onClick(View e) {		
 		Button button = this.<Button>GetView(e.getId());		
 		switch(button.getId()){
-			case R.id.return_main:this.setResult(Activity.RESULT_OK); this.finish(); //refactor to return a success/canceled. on success open load menu.
+			case R.id.return_main:this.setResult(Activity.RESULT_OK); this.finish(); 
 			case R.id.delete_char:DeleteConfirm(); break; 
+			case R.id.go_calculate: StartRollActivity(RollCalculateActivity.class, profile.getId()); break;
+			case R.id.manage_character: break;
 			default: break;
 		}		
+	}	
+
+	
+	private void StartRollActivity(Class<?> classInput, Integer Id) {
+		Intent intent = new Intent(this, classInput);
+		intent.putExtra("ID", Id);
+		this.startActivityForResult(intent, 0);
+		
 	}
 
 	private void DeleteConfirm() {
@@ -70,7 +83,7 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
 
 
 	private void DisplayData() {
-	
+		//#Todo refactor this into a nice grid layout and store strings 
 		(this.<TextView>GetView(R.id.TextView01)).setText("id:" + String.valueOf(profile.getId()));
 		(this.<TextView>GetView(R.id.TextView02)).setText("name:" + profile.getName());
 		(this.<TextView>GetView(R.id.TextView03)).setText("dvid:" + String.valueOf(profile.getDefaultViewId()));
