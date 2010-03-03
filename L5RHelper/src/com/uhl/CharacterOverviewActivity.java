@@ -4,6 +4,8 @@ import com.uhl.db.DBHelper;
 import com.uhl.db.Profile;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +21,30 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
         setContentView(R.layout.display_profile_data);
         DisplayData();        
         RegisterButtons();
+        SetupDeleteDialog();
     }
+    
+    private AlertDialog.Builder deleteConfirmBuilder;
+    
+    private void SetupDeleteDialog() {
+    	deleteConfirmBuilder = new AlertDialog.Builder(this);
+    	deleteConfirmBuilder.setMessage("Are you sure you want to delete this character?")
+	       .setCancelable(false)
+	       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	      		 dbHelper.deleteProfile(profile.getId()); 
+	      		 CharacterOverviewActivity.this.setResult(Activity.RESULT_OK);  
+	      		 CharacterOverviewActivity.this.finish();
+	           }
+	       })
+	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	                dialog.cancel();
+	           }
+	       });
+	}
+
+	
     
 	private void RegisterButtons() {
 		(this.<Button>GetView(R.id.return_main)).setOnClickListener(this);
@@ -31,11 +56,19 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
 		Button button = this.<Button>GetView(e.getId());		
 		switch(button.getId()){
 			case R.id.return_main:this.setResult(Activity.RESULT_OK); this.finish(); //refactor to return a success/canceled. on success open load menu.
-			case R.id.delete_char: dbHelper.deleteProfile(profile.getId()); this.setResult(Activity.RESULT_OK); this.finish(); 
+			case R.id.delete_char:DeleteConfirm(); break; 
 			default: break;
 		}		
 	}
-    
+
+	private void DeleteConfirm() {
+		AlertDialog aDialog = deleteConfirmBuilder.create(); 
+		aDialog.setOwnerActivity(this); 
+		aDialog.show();
+	}
+
+
+
 	private void DisplayData() {
 	
 		(this.<TextView>GetView(R.id.TextView01)).setText("id:" + String.valueOf(profile.getId()));

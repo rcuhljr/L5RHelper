@@ -80,7 +80,7 @@ Templates
     oid
     profileId
     NULLABLE
-    Earth Ring, Water Ring, Fire Ring, Air Ring, Strength, Agility number(4)
+    Earth Ring, Water Ring, Fire Ring, Air Ring, Strength, Agility number(4) #Decide if these should be a seperate table like bonuses based off them.
     weapon skill level
     isGpSkill?
     FreeRaises
