@@ -38,7 +38,7 @@ public class HomeActivity extends Activity implements OnClickListener, L5RActivi
 	public void onClick(View e) {		
 		Button button = this.<Button>GetView(e.getId());		
 		switch(button.getId()){
-			case R.id.create_new:StartActivity(NewCharacterActivity.class);break; //refactor to return a success/canceled. on success open load menu.
+			case R.id.create_new:StartActivity(NewCharacterActivity.class);break; 
 			case R.id.load_existing:StartActivity(LoadProfileView.class);break;
 			default: break;
 		}		
