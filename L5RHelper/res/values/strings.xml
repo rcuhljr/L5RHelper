@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="misc_mods">Misc modifiers</string>
+    <string name="zero">0</string>
+    <string name="calculate">Calculate</string>
+    <string name="use_luck">Luck?</string>
     <string name="confidence">Hit Probability(1-100)</string>
     <string name="default_confidence">95</string>
     <string name="roll">Roll:</string>

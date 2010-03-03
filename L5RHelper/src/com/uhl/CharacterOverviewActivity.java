@@ -60,7 +60,7 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
 		switch(button.getId()){
 			case R.id.return_main:this.setResult(Activity.RESULT_OK); this.finish(); 
 			case R.id.delete_char:DeleteConfirm(); break; 
-			case R.id.go_calculate: StartRollActivity(RollCalculateActivity.class, profile.getId()); break;
+			case R.id.go_calculate: StartRollActivity(MeleeRollCalculateActivity.class, profile.getId()); break;
 			case R.id.manage_character: break;
 			default: break;
 		}		

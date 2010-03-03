@@ -59,6 +59,10 @@ public class Roll {
 		int val = this.kept + (inflow)/2;		
 		return Math.min(val, 10);
 	}
+	
+	public int getKeptRaw() {
+		return this.kept;		
+	}
 
 	public void setStatMod(int statMod) {
 		this.statMod = statMod;
@@ -70,6 +74,11 @@ public class Roll {
 		val = Math.max(val-10, 0)*5;		
 		return val + this.statMod;
 	}
+	
+	public int getStatModRaw(){
+		return this.statMod;
+	}
+	
 	
 	public String toString(){
 		int mod = this.getStatMod();
