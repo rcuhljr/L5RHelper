@@ -45,9 +45,9 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
 	private void SetupResultDialog(int raises){
 		String message;
 		if(raises >= 0){
-			message = "Assuming a target with TN:"+tntbh+"You can hit "+raises+" raises "+confidence+"% of the time.";
+			message = "Assuming a target with TN:"+tntbh+" You can hit "+raises+" raises "+confidence+"% of the time.";
 		}else{
-			message = "Assuming a target with TN:"+tntbh+"You can't hit it with "+confidence+"% confidence.";
+			message = "Assuming a target with TN:"+tntbh+" You can't hit it with "+confidence+"% confidence.";
 		}
 		
 		resultBuilder = new AlertDialog.Builder(this);		

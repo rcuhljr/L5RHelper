@@ -22,6 +22,7 @@ public class Histogram {
 		Cursor cursor = db.getHistogram(roll);
 		LoadHistogram(cursor.getBlob(0));
 		db.close();
+		cursor.close();
 	}
 
 	private void LoadHistogram(byte[] data) {

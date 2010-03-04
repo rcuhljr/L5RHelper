@@ -35,6 +35,7 @@ public class Profile {
 		setAgility(cursor.getInt(9));
 		setLuck(cursor.getInt(10));
 		setGp(cursor.getInt(11));
+		cursor.close();
 	}
 	
 	public void SetStats(int eRing, int wRing, int fRing, int aRing, int vRing, int ref, int agi, int luck, int gp){

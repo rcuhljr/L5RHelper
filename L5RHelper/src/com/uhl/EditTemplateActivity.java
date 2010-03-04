@@ -12,23 +12,27 @@ import android.widget.Spinner;
 import com.uhl.db.DBHelper;
 import com.uhl.db.DefaultViews;
 import com.uhl.db.Profile;
+import com.uhl.db.Template;
 
-public class NewCharacterActivity extends Activity implements OnClickListener{
+public class EditTemplateActivity extends Activity implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_character);
+        setContentView(R.layout.edit_template);
         dbHelper = new DBHelper(this);
         Bundle info = getIntent().getExtras();
-        int id;
-        if(info != null){
-        	id = info.getInt("ID");
-        }else { id = 0;}
-        if(id != 0){
-        	profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
-        	existingProfile = true;
-        	configName();
-        }        
+        int id = info.getInt("ID");
+        int profileId = info.getInt("PROFILE_ID");
+        if(id != -1)
+        {
+        	template =dbHelper.loadTemplate(id);
+        }else{
+        	template = new Template(profileId);
+        }
+        profile = dbHelper.loadProfile(profileId);	
+    	
+    	configName();
+                
         RegisterButtons();
     }
            
@@ -44,6 +48,7 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 	}
 
 	private Profile profile;
+	private Template template;
 	private DBHelper dbHelper;
 	private boolean existingProfile = false; 
 	

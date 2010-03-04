@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/template_name" android:text="@string/template_name" android:layout_marginTop="12px"></TextView>
+<EditText android:layout_height="wrap_content" android:layout_toRightOf="@+id/template_name" android:id="@+id/template_name_box" android:layout_width="fill_parent" android:layout_marginLeft="8px" android:layout_marginRight="3px"></EditText>
+<TextView android:layout_height="wrap_content" android:layout_below="@+id/template_name_box" android:layout_width="wrap_content" android:layout_toRightOf="@+id/agility_label" android:layout_marginLeft="10px" android:id="@+id/skill_rank_label" android:text="@string/skill_rank"></TextView><Spinner android:id="@+id/Spinner01" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/skill_rank_label" android:layout_toRightOf="@+id/spin_agi" android:layout_marginLeft="3px" android:entries="@array/skillranks"></Spinner><CheckBox android:layout_height="wrap_content" android:id="@+id/CheckBox01" android:layout_below="@+id/skill_rank_label" android:layout_toRightOf="@+id/Spinner01" android:layout_width="wrap_content" android:text="@string/is_gp"></CheckBox><TextView android:layout_height="wrap_content" android:layout_below="@+id/template_name_box" android:layout_width="wrap_content" android:id="@+id/reflexes_label" android:text="@string/reflexes_mod"></TextView>
+<TextView android:layout_height="wrap_content" android:layout_below="@+id/template_name_box" android:layout_toRightOf="@+id/reflexes_label" android:layout_width="wrap_content" android:id="@+id/agility_label" android:text="@string/agility_mod" android:layout_marginLeft="8px"></TextView><Spinner android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/agility_label" android:id="@+id/spin_agi" android:layout_toRightOf="@+id/spin_ref" android:layout_marginLeft="6px" android:entries="@array/traitmods"></Spinner><Spinner android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/reflexes_label" android:id="@+id/spin_ref" android:entries="@array/traitmods"></Spinner>
+
+
+
+
+
+<TextView android:id="@+id/TextView01" android:layout_height="wrap_content" android:layout_below="@+id/spin_ref" android:text="@+id/TextView01" android:layout_width="wrap_content"></TextView>
+</RelativeLayout>

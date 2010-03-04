@@ -47,18 +47,17 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
 
 	
     
-	private void RegisterButtons() {
-		(this.<Button>GetView(R.id.return_main)).setOnClickListener(this);
+	private void RegisterButtons() {		
 		(this.<Button>GetView(R.id.delete_char)).setOnClickListener(this);
 		(this.<Button>GetView(R.id.go_calculate)).setOnClickListener(this);
 		(this.<Button>GetView(R.id.manage_character)).setOnClickListener(this);
+		(this.<Button>GetView(R.id.manage_templates)).setOnClickListener(this);
 	}
 	
 	@Override
 	public void onClick(View e) {		
 		Button button = this.<Button>GetView(e.getId());		
-		switch(button.getId()){
-			case R.id.return_main:this.setResult(Activity.RESULT_OK); this.finish();break; 
+		switch(button.getId()){			 
 			case R.id.delete_char:DeleteConfirm();break; 
 			case R.id.go_calculate: StartActivityForResult(MeleeRollCalculateActivity.class, profile.getId()); break;
 			case R.id.manage_character: StartActivityForResult(NewCharacterActivity.class, profile.getId()); break;
@@ -71,8 +70,7 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
 	private void StartActivityForResult(Class<?> classInput, Integer Id) {
 		Intent intent = new Intent(this, classInput);
 		intent.putExtra("ID", Id);
-		this.startActivityForResult(intent, 0);
-		
+		this.startActivity(intent);		
 	}
 
 	private void DeleteConfirm() {

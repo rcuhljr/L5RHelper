@@ -194,7 +194,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
 		Cursor cursor = db2.rawQuery(
-				"select histogram from rolls where rolled = ? and kept = ? and gp = ? and luck = ?",
+				"select histogram from Rolls where rolled = ? and kept = ? and gp = ? and luck = ?",
 				new String[] { String.valueOf(roll.getRolled()),
 						String.valueOf(roll.getKept()),
 						String.valueOf(roll.getGp()),
@@ -204,7 +204,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		return cursor;
 	}
 	
-	public Cursor GetProfiles(){
+	public Cursor getProfiles(){
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
 		Cursor cursor = db2.rawQuery("select _id, name from Profiles", new String[0]);
@@ -221,6 +221,97 @@ public class DBHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db2 = this.getWritableDatabase();
 		db2.execSQL(deleteString, values);						
 		this.close();		
+	}
+
+	public Cursor getTemplates(int profileId) {
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getReadableDatabase();
+		Cursor cursor = db2.rawQuery("select _id, name from Templates where profileId = ?", new String[]{String.valueOf(profileId)});
+		cursor.moveToFirst();
+		this.close();		
+		return cursor;
+	}
+
+	public boolean profileNameExists(String name) {
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getReadableDatabase();
+		Cursor cursor = db2.rawQuery("select * from Profiles where name = ?", new String[]{name});
+		boolean result = cursor.getCount() == 1;		
+		this.close();
+		cursor.close();		
+		return result;
+	}
+
+	public boolean profileNameExists(String name, int id) {
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getReadableDatabase();
+		Cursor cursor = db2.rawQuery("select * from Profiles where name = ? and _id != ?", new String[]{name, String.valueOf(id)});
+		boolean result = cursor.getCount() == 1;		
+		this.close();
+		cursor.close();		
+		return result;
 	}	
+	
+	public boolean templateNameExists(String name, int profileId) {
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getReadableDatabase();
+		Cursor cursor = db2.rawQuery("select * from Templates where name = ? and profileId != ?", new String[]{name, String.valueOf(profileId)});
+		boolean result = cursor.getCount() == 1;		
+		this.close();
+		cursor.close();		
+		return result;
+	}
+
+	public boolean templateNameExists(String name, int id, int profileId) {
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getReadableDatabase();
+		Cursor cursor = db2.rawQuery("select * from Templates where name = ? and profileId != ? and _id != ?", 
+				new String[]{name, String.valueOf(profileId),String.valueOf(id)}
+		);
+		boolean result = cursor.getCount() == 1;		
+		this.close();
+		cursor.close();		
+		return result;
+	}
+
+	public Template loadTemplate(int id) {
+		
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getReadableDatabase();
+		Cursor cursor = db2.rawQuery(
+				"select _id, profileId, name, reflexes, agility, useReflexes, weaponSkill, isGp, modifier, rolled, kept from Templates where _id = ?",
+				new String[] { String.valueOf(id)});
+		cursor.moveToFirst();
+		this.close();		
+		Template result = new Template(cursor);
+		return result;
+	}
+	
+public void saveTemplate(Template template){
+		
+		String insertString = "";
+		String[] values = new String[0];
+		
+		if(template.getId() == -1){
+			//create
+			insertString = "insert into Templates values (null,?,?,?,?,?,?,?,?,?,?)";
+			values = new String[] {String.valueOf(template.getProfileId()),String.valueOf(template.getName()),
+					String.valueOf(template.getReflexes()),String.valueOf(template.getAgility()),String.valueOf(template.getUseReflexes()),
+					String.valueOf(template.getSkillRank()),String.valueOf(template.getisGp()),String.valueOf(template.getModifier()),
+					String.valueOf(template.getRolled()),String.valueOf(template.getKept())};
+		}else
+		{
+			//update
+			insertString = "update Templates set name = ?, reflexes = ?, agility = ?, useReflexes = ?, skillRank = ?, isGp = ?, modifier = ?, rolled = ?, kept = ? where _id = ?";
+			values = new String[] {String.valueOf(template.getName()),
+					String.valueOf(template.getReflexes()),String.valueOf(template.getAgility()),String.valueOf(template.getUseReflexes()),
+					String.valueOf(template.getSkillRank()),String.valueOf(template.getisGp()),String.valueOf(template.getModifier()),
+					String.valueOf(template.getRolled()),String.valueOf(template.getKept()), String.valueOf(template.getId())};
+		}		
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getWritableDatabase();
+		db2.execSQL(insertString, values);						
+		this.close();
+	}
 
 }

@@ -16,6 +16,7 @@
 <activity android:name=".LoadProfileView" android:label="@string/load"></activity>
 <activity android:name=".CharacterOverviewActivity" android:label="@string/character_overview"></activity>
 <activity android:label="@string/roll_calculations" android:name=".MeleeRollCalculateActivity"></activity>
+<activity android:name=".ManageTemplateView" android:label="@string/template_manager"></activity>
 </application>
     <uses-sdk android:minSdkVersion="6" />
 

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="is_gp">GP?</string>
+    <string name="skill_rank">Skill Rank</string>
+    <string name="agility_mod">Agility Mod</string>
+    <string name="reflexes_mod">Reflexes Mod</string>
+    <string name="template_name">Template Name</string>
+    <string name="name_in_use">Name in use</string>
+    <string name="template_manager">Template Manager</string>
     <string name="manage_templates">Manage Templates</string>
     <string name="character_name">Character:</string>
     <string name="tn">TNTBH</string>

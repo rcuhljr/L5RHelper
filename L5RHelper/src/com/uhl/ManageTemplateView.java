@@ -14,17 +14,19 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.uhl.db.DBHelper;
+import com.uhl.db.Profile;
 
-public class LoadProfileView extends ListActivity {
+public class ManageTemplateView extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  
 	  dbHelper = new DBHelper(this);
+	  profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
 	  
-	  BuildUserTable();
-	  String[] names = new String[profiles.keySet().size()];
-	  profiles.keySet().toArray(names);
+	  buildTemplateTable(profile.getId());
+	  String[] names = new String[templates.keySet().size()];
+	  templates.keySet().toArray(names);
 
 	  setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, names));
 
@@ -34,38 +36,35 @@ public class LoadProfileView extends ListActivity {
 	  lv.setOnItemClickListener(new OnItemClickListener() {
 	    public void onItemClick(AdapterView<?> parent, View view,
 	        int position, long id) {
-	    		int value = profiles.get((String)((TextView) view).getText());
-	    		if ( value == -1) return;
-	    		StartActivity(CharacterOverviewActivity.class, value );
+	    		int value = templates.get((String)((TextView) view).getText());	    		
+	    		StartActivity(EditTemplateActivity.class, value, profile.getId() );
 	    }
 	  });
 	}
 	
-	private void StartActivity(Class<?> classInput, Integer Id) {
+	private void StartActivity(Class<?> classInput, Integer Id, Integer profileId) {
 		Intent intent = new Intent(this, classInput);
 		intent.putExtra("ID", Id);
+		intent.putExtra("PROFILE_ID", profileId);
 		this.startActivityForResult(intent, 0);
 		
 	}	
-
-	protected void onActivityResult(int requestCode, int resultCode, Intent data){
-		//for now just return to the main activity, however we could stop here if they selected something to load a new character
-		this.finish();
-	}
 	
-	private void BuildUserTable() {
-		Cursor cursor = dbHelper.getProfiles();
+	private void buildTemplateTable(int profileId) {
+		Cursor cursor = dbHelper.getTemplates(profileId);
+		templates.put("New Template", -1);
 		if(cursor.getCount() < 1){
-			profiles.put("No Profiles", -1);
+			cursor.close();
 			return;
 		}
 		do{
-			profiles.put(cursor.getString(1), cursor.getInt(0));
+			templates.put(cursor.getString(1), cursor.getInt(0));
 		}while(cursor.moveToNext());
 		cursor.close();
 	}
 
 	private DBHelper dbHelper;
-	private Hashtable<String, Integer> profiles = new Hashtable<String, Integer>();
+	private Hashtable<String, Integer> templates = new Hashtable<String, Integer>();
+	private Profile profile;
 	
 }
