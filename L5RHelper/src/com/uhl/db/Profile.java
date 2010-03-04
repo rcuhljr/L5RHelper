@@ -7,13 +7,13 @@ public class Profile {
 	private int _id = -1;
 	private String name;
 	private int defaultViewId =1;
-	private int earthRing =0;
-	private int waterRing =0;
-	private int fireRing =0;
-	private int airRing =0;
-	private int voidRing =0;
-	private int reflexes =0;
-	private int agility =0;
+	private int earthRing =3;
+	private int waterRing =3;
+	private int fireRing =3;
+	private int airRing =3;
+	private int voidRing =3;
+	private int reflexes =3;
+	private int agility =3;
 	private int luck =0;
 	private int gp =0;
 	

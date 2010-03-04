@@ -17,13 +17,35 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbHelper = new DBHelper(this);
         setContentView(R.layout.new_character);
+        dbHelper = new DBHelper(this);
+        Bundle info = getIntent().getExtras();
+        int id;
+        if(info != null){
+        	id = info.getInt("ID");
+        }else { id = 0;}
+        if(id != 0){
+        	profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
+        	existingProfile = true;
+        	configName();
+        }        
         RegisterButtons();
     }
            
+	private void configName() {
+		EditText nameBox = this.<EditText>GetView(R.id.char_name);
+		nameBox.setText(profile.getName());
+		if(profile.getDefaultViewId() == DefaultViews.melee.getId()){
+			this.<RadioGroup>GetView(R.id.radio_group).check(R.id.radio_melee);
+		}else{
+			this.<RadioGroup>GetView(R.id.radio_group).check(R.id.radio_caster);
+		}
+		
+	}
+
 	private Profile profile;
 	private DBHelper dbHelper;
+	private boolean existingProfile = false; 
 	
 
 	private void RegisterButtons() {
@@ -103,12 +125,18 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 		switch(checkedButton){
 			case R.id.radio_melee:
 				defaultView = DefaultViews.melee.getId();
-				profile = new Profile(name, defaultView);
+				if(existingProfile){
+					profile.setName(name); 
+					profile.setDefaultViewId(defaultView);
+				}else{ profile = new Profile(name, defaultView); }
 				SetupMeleeEntry();
 				break;
 			case R.id.radio_caster:
 				defaultView = DefaultViews.caster.getId();
-				profile = new Profile(name, defaultView);
+				if(existingProfile){
+					profile.setName(name); 
+					profile.setDefaultViewId(defaultView);
+				}else{ profile = new Profile(name, defaultView); }
 				SetupCasterEntry();
 				break;
 			default:break;
@@ -117,26 +145,35 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 
 
 	private void SetupCasterEntry() {
-		setContentView(R.layout.character_entry_caster);
+		setContentView(R.layout.character_entry_caster);		
+		setSpinnerFromProfile(R.id.spin_earth, profile.getEarthRing());
+		setSpinnerFromProfile(R.id.spin_water, profile.getWaterRing());
+		setSpinnerFromProfile(R.id.spin_fire, profile.getFireRing());
+		setSpinnerFromProfile(R.id.spin_air, profile.getAirRing());
+		setSpinnerFromProfile(R.id.spin_void, profile.getVoidRing());
+		setSpinnerFromProfile(R.id.spin_luck, profile.getLuck()+1);	
 		
-		(this.<Spinner>GetView(R.id.spin_earth)).setSelection(2);
-		(this.<Spinner>GetView(R.id.spin_water)).setSelection(2);
-		(this.<Spinner>GetView(R.id.spin_fire)).setSelection(2);
-		(this.<Spinner>GetView(R.id.spin_air)).setSelection(2);
-		(this.<Spinner>GetView(R.id.spin_void)).setSelection(2);
-		this.<Button>GetView(R.id.submit_caster_stats).setOnClickListener(this);	
+		this.<Button>GetView(R.id.submit_caster_stats).setOnClickListener(this);
 		
+	}
+
+	private void setSpinnerFromProfile(int id, int value) {
+		Spinner spinner = this.<Spinner>GetView(id);
+		spinner.setSelection(value-1);		
 	}
 
 	private void SetupMeleeEntry() {		
 		setContentView(R.layout.character_entry_melee);
-		(this.<Spinner>GetView(R.id.spin_earth)).setSelection(2);
-		(this.<Spinner>GetView(R.id.spin_water)).setSelection(2);
-		(this.<Spinner>GetView(R.id.spin_fire)).setSelection(2);
-		(this.<Spinner>GetView(R.id.spin_air)).setSelection(2);
-		(this.<Spinner>GetView(R.id.spin_void)).setSelection(2);
-		(this.<Spinner>GetView(R.id.spin_reflexes)).setSelection(2);
-		(this.<Spinner>GetView(R.id.spin_agility)).setSelection(2);	
+		setSpinnerFromProfile(R.id.spin_earth, profile.getEarthRing());
+		setSpinnerFromProfile(R.id.spin_water, profile.getWaterRing());
+		setSpinnerFromProfile(R.id.spin_fire, profile.getFireRing());
+		setSpinnerFromProfile(R.id.spin_air, profile.getAirRing());
+		setSpinnerFromProfile(R.id.spin_void, profile.getVoidRing());
+		setSpinnerFromProfile(R.id.spin_reflexes, profile.getReflexes());
+		setSpinnerFromProfile(R.id.spin_agility, profile.getAgility());
+		setSpinnerFromProfile(R.id.spin_luck, profile.getLuck()+1);	
+		setSpinnerFromProfile(R.id.spin_gp, profile.getGp()+1);
+			
 		this.<Button>GetView(R.id.submit_melee_stats).setOnClickListener(this);
 		
 	}

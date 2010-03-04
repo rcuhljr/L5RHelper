@@ -60,14 +60,15 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
 		switch(button.getId()){
 			case R.id.return_main:this.setResult(Activity.RESULT_OK); this.finish();break; 
 			case R.id.delete_char:DeleteConfirm();break; 
-			case R.id.go_calculate: StartRollActivity(MeleeRollCalculateActivity.class, profile.getId()); break;
-			case R.id.manage_character: break;
+			case R.id.go_calculate: StartActivityForResult(MeleeRollCalculateActivity.class, profile.getId()); break;
+			case R.id.manage_character: StartActivityForResult(NewCharacterActivity.class, profile.getId()); break;
+			case R.id.manage_templates: break;
 			default: break;
 		}		
 	}	
 
 	
-	private void StartRollActivity(Class<?> classInput, Integer Id) {
+	private void StartActivityForResult(Class<?> classInput, Integer Id) {
 		Intent intent = new Intent(this, classInput);
 		intent.putExtra("ID", Id);
 		this.startActivityForResult(intent, 0);
@@ -83,20 +84,7 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
 
 
 	private void DisplayData() {
-		//#Todo refactor this into a nice grid layout and store strings 
-		(this.<TextView>GetView(R.id.TextView01)).setText("id:" + String.valueOf(profile.getId()));
-		(this.<TextView>GetView(R.id.TextView02)).setText("name:" + profile.getName());
-		(this.<TextView>GetView(R.id.TextView03)).setText("dvid:" + String.valueOf(profile.getDefaultViewId()));
-		(this.<TextView>GetView(R.id.TextView04)).setText("er:" + String.valueOf(profile.getEarthRing()));
-		(this.<TextView>GetView(R.id.TextView05)).setText("wr:" + String.valueOf(profile.getWaterRing()));
-		(this.<TextView>GetView(R.id.TextView06)).setText("fr:" + String.valueOf(profile.getFireRing()));
-		(this.<TextView>GetView(R.id.TextView07)).setText("ar:" + String.valueOf(profile.getAirRing()));
-		(this.<TextView>GetView(R.id.TextView08)).setText("vr:" + String.valueOf(profile.getVoidRing()));
-		(this.<TextView>GetView(R.id.TextView09)).setText("ref:" + String.valueOf(profile.getReflexes()));
-		(this.<TextView>GetView(R.id.TextView10)).setText("agi:" + String.valueOf(profile.getAgility()));
-		(this.<TextView>GetView(R.id.TextView11)).setText("luck:" + String.valueOf(profile.getLuck()));
-		(this.<TextView>GetView(R.id.TextView12)).setText("gp:" + String.valueOf(profile.getGp()));
-		
+		(this.<TextView>GetView(R.id.character_name)).setText(profile.getName());		
 	}
 	
 	@SuppressWarnings("unchecked")

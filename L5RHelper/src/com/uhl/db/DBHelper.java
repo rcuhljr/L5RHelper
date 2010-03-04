@@ -163,12 +163,12 @@ public class DBHelper extends SQLiteOpenHelper {
 		}else
 		{
 			//update
-			insertString = "update Profiles set name = ?, defaultViewId = ?, earth = ?, water = ?, fire = ?, air = ?, void = ?, reflexes = ?, agility = ?, luck = ?, gp = ?)";
-			values = new String[] {String.valueOf(profile.getId()),
+			insertString = "update Profiles set name = ?, defaultViewId = ?, earth = ?, water = ?, fire = ?, air = ?, void = ?, reflexes = ?, agility = ?, luck = ?, gp = ? where _id = ?";
+			values = new String[] {
 					String.valueOf(profile.getName()),String.valueOf(profile.getDefaultViewId()),
 					String.valueOf(profile.getEarthRing()),String.valueOf(profile.getWaterRing()),String.valueOf(profile.getFireRing()),
 					String.valueOf(profile.getAirRing()),String.valueOf(profile.getVoidRing()),String.valueOf(profile.getReflexes()),
-					String.valueOf(profile.getAgility()),String.valueOf(profile.getLuck()),String.valueOf(profile.getGp())};
+					String.valueOf(profile.getAgility()),String.valueOf(profile.getLuck()),String.valueOf(profile.getGp()),String.valueOf(profile.getId())};
 		}		
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getWritableDatabase();

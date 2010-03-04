@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="manage_templates">Manage Templates</string>
+    <string name="character_name">Character:</string>
     <string name="tn">TNTBH</string>
     <string name="default_tn">25</string>
     <string name="misc_mods">Misc modifiers</string>
