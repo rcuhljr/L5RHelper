@@ -12,9 +12,9 @@ public class Raises {
 	public static int calculateRaises(Context ctx, int target, Roll roll, int confidence) {
 
 		Histogram h = new Histogram(roll, ctx);
-		int highest = h.getHighestTN(confidence);
-		if(highest <= target)
-			return 0;
+		int highest = h.getHighestTN(confidence)+roll.getStatMod();
+		if(highest < target)
+			return -1;
 		return (highest - target) / 5;
 	}
 }

@@ -13,7 +13,7 @@ public class RaisesTest extends AndroidTestCase {
 		Context testContext = getContext();
 		int raises = Raises.calculateRaises(testContext, Integer.MAX_VALUE,
 				new Roll(10, 10, 0, 0));
-		assertEquals(0, raises);
+		assertEquals(-1, raises);
 	}
 
 	public void testCalculateRaisesShouldHandleTN10() {

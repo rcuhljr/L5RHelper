@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="tn">TNTBH</string>
+    <string name="default_tn">25</string>
     <string name="misc_mods">Misc modifiers</string>
     <string name="zero">0</string>
     <string name="calculate">Calculate</string>
