@@ -7,14 +7,12 @@ import com.uhl.db.Profile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -170,11 +168,7 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
 		}
 	}
 
-	private void Calculate() {
-//		
-//		InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-//		EditText textbox = this.<EditText>GetView(R.id.misc_mods);
-//		imm.hideSoftInputFromWindow(textbox.getWindowToken(), 0);		
+	private void Calculate() {		
 		
 		int luck = this.<CheckBox>GetView(R.id.use_luck).isChecked()? 1 : 0;
 		roll.setLuck(luck);	

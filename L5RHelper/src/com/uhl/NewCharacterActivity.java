@@ -1,11 +1,9 @@
 package com.uhl;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -119,7 +117,6 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 
 
 	private void SetupCasterEntry() {
-		HideKeyboard();
 		setContentView(R.layout.character_entry_caster);
 		
 		(this.<Spinner>GetView(R.id.spin_earth)).setSelection(2);
@@ -130,15 +127,8 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 		this.<Button>GetView(R.id.submit_caster_stats).setOnClickListener(this);	
 		
 	}
-	
-	private void HideKeyboard(){
-		InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-		EditText textbox = this.<EditText>GetView(R.id.char_name);
-		imm.hideSoftInputFromWindow(textbox.getWindowToken(), 0);		
-	}
 
-	private void SetupMeleeEntry() {
-		HideKeyboard();
+	private void SetupMeleeEntry() {		
 		setContentView(R.layout.character_entry_melee);
 		(this.<Spinner>GetView(R.id.spin_earth)).setSelection(2);
 		(this.<Spinner>GetView(R.id.spin_water)).setSelection(2);
