@@ -232,30 +232,10 @@ public class DBHelper extends SQLiteOpenHelper {
 		return cursor;
 	}
 
-	public boolean profileNameExists(String name) {
-		this.openDataBase();
-		SQLiteDatabase db2 = this.getReadableDatabase();
-		Cursor cursor = db2.rawQuery("select * from Profiles where name = ?", new String[]{name});
-		boolean result = cursor.getCount() == 1;		
-		this.close();
-		cursor.close();		
-		return result;
-	}
-
 	public boolean profileNameExists(String name, int id) {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
 		Cursor cursor = db2.rawQuery("select * from Profiles where name = ? and _id != ?", new String[]{name, String.valueOf(id)});
-		boolean result = cursor.getCount() == 1;		
-		this.close();
-		cursor.close();		
-		return result;
-	}	
-	
-	public boolean templateNameExists(String name, int profileId) {
-		this.openDataBase();
-		SQLiteDatabase db2 = this.getReadableDatabase();
-		Cursor cursor = db2.rawQuery("select * from Templates where name = ? and profileId != ?", new String[]{name, String.valueOf(profileId)});
 		boolean result = cursor.getCount() == 1;		
 		this.close();
 		cursor.close();		

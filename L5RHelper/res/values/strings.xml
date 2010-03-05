@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="trait_select">Attack trait</string>
+    <string name="unable_to_parse">Unable to parse values.</string>
+    <string name="save_template">Save Template</string>
+    <string name="kept">Kept</string>
+    <string name="rolled">Rolled</string>
+    <string name="modifer">Modifier</string>
     <string name="is_gp">GP?</string>
     <string name="skill_rank">Skill Rank</string>
     <string name="agility_mod">Agility Mod</string>

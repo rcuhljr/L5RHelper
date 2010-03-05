@@ -117,16 +117,10 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 			nameBox.setText(getString(R.string.error_no_name));
 			return;
 		}
-		if(existingProfile){
-			if(dbHelper.profileNameExists(name)){
-				nameBox.setText(R.string.name_in_use);
-				return;
-			}
-		}else{
-			if(dbHelper.profileNameExists(name, profile.getId())){
-				nameBox.setText(R.string.name_in_use);
-				return;
-			}
+		if(dbHelper.profileNameExists(name, profile.getId())){
+			nameBox.setText(R.string.name_in_use);
+			return;
+		
 		}
 		
 		int defaultView = -1;

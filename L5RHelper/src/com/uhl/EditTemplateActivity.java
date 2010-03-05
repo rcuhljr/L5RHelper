@@ -1,16 +1,20 @@
 package com.uhl;
 
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioGroup;
+
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.uhl.db.DBHelper;
-import com.uhl.db.DefaultViews;
+
 import com.uhl.db.Profile;
 import com.uhl.db.Template;
 
@@ -31,30 +35,49 @@ public class EditTemplateActivity extends Activity implements OnClickListener{
         }
         profile = dbHelper.loadProfile(profileId);	
     	
-    	configName();
-                
-        RegisterButtons();
+        errorLabel = this.<TextView>GetView(R.id.error_message);
+        
+    	configName();                
+        RegisterButtons();        
+        setupBoxes();
     }
            
-	private void configName() {
-		EditText nameBox = this.<EditText>GetView(R.id.char_name);
-		nameBox.setText(profile.getName());
-		if(profile.getDefaultViewId() == DefaultViews.melee.getId()){
-			this.<RadioGroup>GetView(R.id.radio_group).check(R.id.radio_melee);
-		}else{
-			this.<RadioGroup>GetView(R.id.radio_group).check(R.id.radio_caster);
-		}
+	private void setupBoxes() {		 
 		
+		setSpinnerFromProfile(R.id.spin_agi, template.getAgility()+2);
+		setSpinnerFromProfile(R.id.spin_ref, template.getReflexes()+2);
+		setSpinnerFromProfile(R.id.spin_skills, template.getSkillRank());
+		setSpinnerFromProfile(R.id.spin_trait, template.getUseReflexes());
+		
+		this.<EditText>GetView(R.id.template_name_box).setText(template.getName());
+		this.<EditText>GetView(R.id.modifier_textbox).setText(String.valueOf(template.getModifier()));
+		this.<EditText>GetView(R.id.rolled_textbox).setText(String.valueOf(template.getRolled()));
+		this.<EditText>GetView(R.id.kept_textbox).setText(String.valueOf(template.getKept()));
+		this.<CheckBox>GetView(R.id.use_gp).setChecked((profile.getGp() == 1)&&(template.getisGp() == 1));
+
+		if(profile.getGp() == 0){
+			this.<CheckBox>GetView(R.id.use_gp).setVisibility(View.GONE);
+		}	
+	}
+	
+	private void setSpinnerFromProfile(int id, int value) {
+		Spinner spinner = this.<Spinner>GetView(id);		
+		spinner.setSelection(value);		
+	}
+
+	private void configName() {
+		EditText nameBox = this.<EditText>GetView(R.id.template_name_box);
+		nameBox.setText(template.getName());	
 	}
 
 	private Profile profile;
 	private Template template;
-	private DBHelper dbHelper;
-	private boolean existingProfile = false; 
+	private DBHelper dbHelper;	 
+	private TextView errorLabel;
 	
 
 	private void RegisterButtons() {
-		this.<Button>GetView(R.id.submit_button).setOnClickListener(this);		
+		this.<Button>GetView(R.id.save_template).setOnClickListener(this);		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -68,34 +91,62 @@ public class EditTemplateActivity extends Activity implements OnClickListener{
 
 
 	@Override
-	public void onClick(View e) {		
-		Button button = this.<Button>GetView(e.getId());		
-		switch(button.getId()){
-			case R.id.submit_button:SubmitPressed();break;
-			case R.id.submit_caster_stats:
-			case R.id.submit_melee_stats:SubmitToDB();break;
-			default: break;
-		}		
-	}
-
-
-	private void SubmitToDB() {
-		int eRing = GetValue(R.id.spin_earth);
-		int wRing = GetValue(R.id.spin_water);
-		int fRing = GetValue(R.id.spin_fire);
-		int aRing = GetValue(R.id.spin_air);
-		int vRing = GetValue(R.id.spin_void);
-		int ref = GetValue(R.id.spin_reflexes);
-		int agi = GetValue(R.id.spin_agility);
-		int luck = GetValue(R.id.spin_luck);
-		int gp = GetValue(R.id.spin_gp);
-		
-		profile.SetStats(eRing, wRing, fRing, aRing, vRing, ref, agi, luck, gp);
-		dbHelper.saveProfile(profile);
-		//#todo transition to character loaded main screen.
+	public void onClick(View e) {
+		if(!validateName()){
+			return;
+		}
+		if(!validateBoxes()){
+			return;
+		}
+		updateTemplate();
+		dbHelper.saveTemplate(template);
 		this.finish();
 	}
 
+	private void updateTemplate() {
+		template.setAgility(GetValue(R.id.spin_agi));
+		template.setisGp(this.<CheckBox>GetView(R.id.use_gp).isChecked()? 1 : 0);
+		template.setReflexes(GetValue(R.id.spin_ref));
+		template.setUseReflexes(this.<Spinner>GetView(R.id.spin_trait).getSelectedItemPosition());
+		template.setSkillRank(GetValue(R.id.spin_skills));		
+	}
+
+	private boolean validateBoxes() {
+		EditText modifier = this.<EditText>GetView(R.id.modifier_textbox);
+		EditText rolled = this.<EditText>GetView(R.id.rolled_textbox);
+		EditText kept = this.<EditText>GetView(R.id.kept_textbox);
+		TextView errorText = this.<TextView>GetView(R.id.error_message);
+		
+		try{
+			template.setModifier(Integer.parseInt(modifier.getText().toString()));
+			template.setRolled(Integer.parseInt(rolled.getText().toString()));
+			template.setKept(Integer.parseInt(kept.getText().toString()));
+		}catch(Exception e){
+			errorText.setText(R.string.unable_to_parse);
+			return false;
+		}
+		errorText.setText("");
+
+		return true;
+	}
+
+	private boolean validateName() {
+		
+		EditText nameBox = this.<EditText>GetView(R.id.template_name_box);
+		String name = nameBox.getText().toString();
+		if(name == null || name .equals("") || name.equals(getString(R.string.error_no_name))){
+			errorLabel.setText(getString(R.string.error_no_name));
+			return false;
+		}
+		
+		if(dbHelper.templateNameExists(name, template.getId(), template.getProfileId())){
+			errorLabel.setText(R.string.name_in_use);
+			return false;
+		}
+		
+		return true;
+		
+	}
 
 	private int GetValue(int id) {
 		int result = -1; //#todo find a better way to do this.
@@ -115,82 +166,6 @@ public class EditTemplateActivity extends Activity implements OnClickListener{
 	}
 
 
-	private void SubmitPressed() {
-		EditText nameBox = this.<EditText>GetView(R.id.char_name); 
-		String name = nameBox.getText().toString();
-		if(name == null || name .equals("") || name.equals(getString(R.string.error_no_name))){
-			nameBox.setText(getString(R.string.error_no_name));
-			return;
-		}
-		if(existingProfile){
-			if(dbHelper.profileNameExists(name)){
-				nameBox.setText(R.string.name_in_use);
-				return;
-			}
-		}else{
-			if(dbHelper.profileNameExists(name, profile.getId())){
-				nameBox.setText(R.string.name_in_use);
-				return;
-			}
-		}
-		
-		int defaultView = -1;
-		int checkedButton = this.<RadioGroup>GetView(R.id.radio_group).getCheckedRadioButtonId();
-		
-		switch(checkedButton){
-			case R.id.radio_melee:
-				defaultView = DefaultViews.melee.getId();
-				if(existingProfile){
-					profile.setName(name); 
-					profile.setDefaultViewId(defaultView);
-				}else{ profile = new Profile(name, defaultView); }
-				SetupMeleeEntry();
-				break;
-			case R.id.radio_caster:
-				defaultView = DefaultViews.caster.getId();
-				if(existingProfile){
-					profile.setName(name); 
-					profile.setDefaultViewId(defaultView);
-				}else{ profile = new Profile(name, defaultView); }
-				SetupCasterEntry();
-				break;
-			default:break;
-		}
-	}
 
-
-	private void SetupCasterEntry() {
-		setContentView(R.layout.character_entry_caster);		
-		setSpinnerFromProfile(R.id.spin_earth, profile.getEarthRing());
-		setSpinnerFromProfile(R.id.spin_water, profile.getWaterRing());
-		setSpinnerFromProfile(R.id.spin_fire, profile.getFireRing());
-		setSpinnerFromProfile(R.id.spin_air, profile.getAirRing());
-		setSpinnerFromProfile(R.id.spin_void, profile.getVoidRing());
-		setSpinnerFromProfile(R.id.spin_luck, profile.getLuck()+1);	
-		
-		this.<Button>GetView(R.id.submit_caster_stats).setOnClickListener(this);
-		
-	}
-
-	private void setSpinnerFromProfile(int id, int value) {
-		Spinner spinner = this.<Spinner>GetView(id);
-		spinner.setSelection(value-1);		
-	}
-
-	private void SetupMeleeEntry() {		
-		setContentView(R.layout.character_entry_melee);
-		setSpinnerFromProfile(R.id.spin_earth, profile.getEarthRing());
-		setSpinnerFromProfile(R.id.spin_water, profile.getWaterRing());
-		setSpinnerFromProfile(R.id.spin_fire, profile.getFireRing());
-		setSpinnerFromProfile(R.id.spin_air, profile.getAirRing());
-		setSpinnerFromProfile(R.id.spin_void, profile.getVoidRing());
-		setSpinnerFromProfile(R.id.spin_reflexes, profile.getReflexes());
-		setSpinnerFromProfile(R.id.spin_agility, profile.getAgility());
-		setSpinnerFromProfile(R.id.spin_luck, profile.getLuck()+1);	
-		setSpinnerFromProfile(R.id.spin_gp, profile.getGp()+1);
-			
-		this.<Button>GetView(R.id.submit_melee_stats).setOnClickListener(this);
-		
-	}
 
 }
