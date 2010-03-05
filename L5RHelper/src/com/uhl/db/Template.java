@@ -32,8 +32,6 @@ public class Template {
 		setModifier(cursor.getInt(8));
 		setRolled(cursor.getInt(9));
 		setKept(cursor.getInt(10));
-		
-		cursor.close();
 	}
 
 	public void setId(int _id) {

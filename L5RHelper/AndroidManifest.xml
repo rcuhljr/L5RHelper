@@ -5,19 +5,25 @@
       android:versionName="1.0">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".HomeActivity"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-    <activity android:name=".NewCharacterActivity" android:label="@string/CreateNew"></activity>
-<activity android:name=".LoadProfileView" android:label="@string/load"></activity>
-<activity android:name=".CharacterOverviewActivity" android:label="@string/character_overview"></activity>
-<activity android:label="@string/roll_calculations" android:name=".MeleeRollCalculateActivity"></activity>
-<activity android:name=".ManageTemplateView" android:label="@string/template_manager"></activity>
+    <activity android:name=".NewCharacterActivity" android:label="@string/CreateNew" android:screenOrientation="portrait"></activity>
+<activity android:name=".LoadProfileView" android:label="@string/load" android:screenOrientation="portrait"></activity>
+<activity android:name=".CharacterOverviewActivity" android:label="@string/character_overview" android:screenOrientation="portrait"></activity>
+<activity android:label="@string/roll_calculations" android:name=".MeleeRollCalculateActivity" android:screenOrientation="portrait"></activity>
+<activity android:name=".ManageTemplateView" android:label="@string/template_manager" android:screenOrientation="portrait"></activity>
+<activity android:name=".EditTemplateActivity" android:label="@string/template_manager" android:screenOrientation="portrait"></activity>
+
 </application>
     <uses-sdk android:minSdkVersion="6" />
+
+
+
+
 
 </manifest> 

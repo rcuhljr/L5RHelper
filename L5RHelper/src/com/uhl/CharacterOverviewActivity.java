@@ -1,6 +1,7 @@
 package com.uhl;
 
 import com.uhl.db.DBHelper;
+import com.uhl.db.DefaultViews;
 import com.uhl.db.Profile;
 
 import android.app.Activity;
@@ -59,9 +60,13 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
 		Button button = this.<Button>GetView(e.getId());		
 		switch(button.getId()){			 
 			case R.id.delete_char:DeleteConfirm();break; 
-			case R.id.go_calculate: StartActivityForResult(MeleeRollCalculateActivity.class, profile.getId()); break;
+			case R.id.go_calculate:
+				if(profile.getDefaultViewId() == DefaultViews.melee.getId()){
+					StartActivityForResult(MeleeRollCalculateActivity.class, profile.getId()); 
+				}
+				break;
 			case R.id.manage_character: StartActivityForResult(NewCharacterActivity.class, profile.getId()); break;
-			case R.id.manage_templates: break;
+			case R.id.manage_templates: StartActivityForResult(ManageTemplateView.class, profile.getId()); break;
 			default: break;
 		}		
 	}	

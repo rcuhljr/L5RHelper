@@ -28,8 +28,10 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
         	profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
         	existingProfile = true;
         	configName();
-        }        
-        RegisterButtons();
+        }else{
+        	profile = new Profile(null, -1);
+        }
+        RegisterButtons();        
     }
            
 	private void configName() {
@@ -118,7 +120,7 @@ public class NewCharacterActivity extends Activity implements OnClickListener{
 			return;
 		}
 		if(dbHelper.profileNameExists(name, profile.getId())){
-			nameBox.setText(R.string.name_in_use);
+			nameBox.setText(getString(R.string.name_in_use));
 			return;
 		
 		}

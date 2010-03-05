@@ -24,24 +24,41 @@ public class ManageTemplateView extends ListActivity {
 	  dbHelper = new DBHelper(this);
 	  profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
 	  
-	  buildTemplateTable(profile.getId());
-	  String[] names = new String[templates.keySet().size()];
-	  templates.keySet().toArray(names);
-
-	  setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, names));
-
+	  initView();
+	  
 	  ListView lv = getListView();
 	  lv.setTextFilterEnabled(true);
 
 	  lv.setOnItemClickListener(new OnItemClickListener() {
 	    public void onItemClick(AdapterView<?> parent, View view,
 	        int position, long id) {
-	    		int value = templates.get((String)((TextView) view).getText());	    		
-	    		StartActivity(EditTemplateActivity.class, value, profile.getId() );
+	    		String selection = (String)((TextView) view).getText();
+	    		if(selection.equals(getString(R.string.new_template))){
+	    			StartActivity(EditTemplateActivity.class, -1, profile.getId() );
+	    		}else {
+		    		int value = templates.get(selection);	    		
+		    		StartActivity(EditTemplateActivity.class, value, profile.getId() );
+	    		}
 	    }
 	  });
 	}
 	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data){
+		//for now just return to the list, call finish here if we want to return to character overview.
+		initView();
+	}
+	
+	private void initView() {
+		buildTemplateTable(profile.getId());
+	    String[] names = new String[templates.keySet().size()];
+	    templates.keySet().toArray(names);
+	    String[] listData = new String[names.length+1];
+	    listData[0] = getString(R.string.new_template);
+	    System.arraycopy(names, 0, listData, 1, names.length);    
+	    
+	    setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, listData));		
+	}
+
 	private void StartActivity(Class<?> classInput, Integer Id, Integer profileId) {
 		Intent intent = new Intent(this, classInput);
 		intent.putExtra("ID", Id);
@@ -51,8 +68,8 @@ public class ManageTemplateView extends ListActivity {
 	}	
 	
 	private void buildTemplateTable(int profileId) {
-		Cursor cursor = dbHelper.getTemplates(profileId);
-		templates.put("New Template", -1);
+		templates = new Hashtable<String, Integer>();
+		Cursor cursor = dbHelper.getTemplateNames(profileId);		
 		if(cursor.getCount() < 1){
 			cursor.close();
 			return;
@@ -64,7 +81,7 @@ public class ManageTemplateView extends ListActivity {
 	}
 
 	private DBHelper dbHelper;
-	private Hashtable<String, Integer> templates = new Hashtable<String, Integer>();
+	private Hashtable<String, Integer> templates;
 	private Profile profile;
 	
 }

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="delete_template">Delete Template</string>
+    <string name="illegal_template_name">illegal template name</string>
+    <string name="new_template">New Template</string>
     <string name="trait_select">Attack trait</string>
     <string name="unable_to_parse">Unable to parse values.</string>
     <string name="save_template">Save Template</string>
     <string name="kept">Kept</string>
     <string name="rolled">Rolled</string>
-    <string name="modifer">Modifier</string>
+    <string name="modifier">Modifier</string>
     <string name="is_gp">GP?</string>
     <string name="skill_rank">Skill Rank</string>
     <string name="agility_mod">Agility Mod</string>
@@ -36,8 +39,7 @@
     <string name="luck">Luck</string>
     <string name="agility">Agility</string>
     <string name="reflexes">Reflexes</string>
-    <string name="voidr">Void Ring</string>
-    
+    <string name="voidr">Void Ring</string>    
     <string name="air">Air Ring</string>
     <string name="fire">Fire Ring</string>
     <string name="water">Water Ring</string>
@@ -52,5 +54,5 @@
     <string name="CreateNew">Create New Character</string>
     <string name="hello">Hello World, HomeActivity!</string>
     <string name="app_name">L5RHelper</string>
-<string name="error_no_name">Name Cannot Be Blank</string>
+	<string name="error_no_name">Name Cannot Be Blank</string>
 </resources>

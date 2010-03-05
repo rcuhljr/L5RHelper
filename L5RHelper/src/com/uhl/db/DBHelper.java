@@ -223,7 +223,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		this.close();		
 	}
 
-	public Cursor getTemplates(int profileId) {
+	public Cursor getTemplateNames(int profileId) {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
 		Cursor cursor = db2.rawQuery("select _id, name from Templates where profileId = ?", new String[]{String.valueOf(profileId)});
@@ -253,17 +253,29 @@ public class DBHelper extends SQLiteOpenHelper {
 		cursor.close();		
 		return result;
 	}
+	
+	public Cursor getTemplates(int profileId) {
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getReadableDatabase();
+		Cursor cursor = db2.rawQuery(
+				"select _id, profileId, name, reflexes, agility, useReflexes, skillRank, isGp, modifier, rolled, kept from Templates where profileId = ?",
+				new String[] { String.valueOf(profileId)});
+		cursor.moveToFirst();
+		this.close();
+		return cursor;
+	}
 
 	public Template loadTemplate(int id) {
 		
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
 		Cursor cursor = db2.rawQuery(
-				"select _id, profileId, name, reflexes, agility, useReflexes, weaponSkill, isGp, modifier, rolled, kept from Templates where _id = ?",
+				"select _id, profileId, name, reflexes, agility, useReflexes, skillRank, isGp, modifier, rolled, kept from Templates where _id = ?",
 				new String[] { String.valueOf(id)});
 		cursor.moveToFirst();
 		this.close();		
 		Template result = new Template(cursor);
+		cursor.close();
 		return result;
 	}
 	
@@ -292,6 +304,16 @@ public void saveTemplate(Template template){
 		SQLiteDatabase db2 = this.getWritableDatabase();
 		db2.execSQL(insertString, values);						
 		this.close();
+	}
+
+	public void deleteTemplate(Integer id, Integer profileId) {				
+		
+		String deleteString = "delete from Templates where _id = ? and profileId = ?";
+		String[] values = new String[] {id.toString(), profileId.toString()};				
+		this.openDataBase();
+		SQLiteDatabase db2 = this.getWritableDatabase();
+		db2.execSQL(deleteString, values);						
+		this.close();		
 	}
 
 }

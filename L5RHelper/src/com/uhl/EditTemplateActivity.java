@@ -6,19 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.uhl.db.DBHelper;
 
 import com.uhl.db.Profile;
 import com.uhl.db.Template;
 
-public class EditTemplateActivity extends Activity implements OnClickListener{
+public class EditTemplateActivity extends Activity implements OnClickListener, OnItemSelectedListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +31,10 @@ public class EditTemplateActivity extends Activity implements OnClickListener{
         int profileId = info.getInt("PROFILE_ID");
         if(id != -1)
         {
-        	template =dbHelper.loadTemplate(id);
+        	template = dbHelper.loadTemplate(id);        	
         }else{
         	template = new Template(profileId);
+        	this.<Button>GetView(R.id.delete_template).setVisibility(View.INVISIBLE);
         }
         profile = dbHelper.loadProfile(profileId);	
     	
@@ -55,8 +58,8 @@ public class EditTemplateActivity extends Activity implements OnClickListener{
 		this.<EditText>GetView(R.id.kept_textbox).setText(String.valueOf(template.getKept()));
 		this.<CheckBox>GetView(R.id.use_gp).setChecked((profile.getGp() == 1)&&(template.getisGp() == 1));
 
-		if(profile.getGp() == 0){
-			this.<CheckBox>GetView(R.id.use_gp).setVisibility(View.GONE);
+		if(profile.getGp() == 0 || template.getSkillRank() == 0){
+			this.<CheckBox>GetView(R.id.use_gp).setVisibility(View.INVISIBLE);
 		}	
 	}
 	
@@ -78,6 +81,8 @@ public class EditTemplateActivity extends Activity implements OnClickListener{
 
 	private void RegisterButtons() {
 		this.<Button>GetView(R.id.save_template).setOnClickListener(this);		
+		this.<Spinner>GetView(R.id.spin_skills).setOnItemSelectedListener(this);
+		this.<Button>GetView(R.id.delete_template).setOnClickListener(this);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -92,6 +97,19 @@ public class EditTemplateActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View e) {
+		Button button = this.<Button>GetView(e.getId());		
+		switch(button.getId()){			 
+			case R.id.delete_template:
+				dbHelper.deleteTemplate(template.getId(), template.getProfileId());
+				this.finish();
+				break; 
+			case R.id.save_template: submit(); break;			
+			default: break;
+		}		
+	}
+
+	private void submit() {
+		errorLabel.setText("");
 		if(!validateName()){
 			return;
 		}
@@ -143,7 +161,11 @@ public class EditTemplateActivity extends Activity implements OnClickListener{
 			errorLabel.setText(R.string.name_in_use);
 			return false;
 		}
-		
+		if(name.equals(R.string.new_template))
+		{
+			errorLabel.setText(R.string.illegal_template_name);
+		}
+		template.setName(name);
 		return true;
 		
 	}
@@ -163,6 +185,18 @@ public class EditTemplateActivity extends Activity implements OnClickListener{
 				result = 0;
 		}
 		return result;
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> adapter, View view, int position, long id) {		
+		this.<CheckBox>GetView(R.id.use_gp).setVisibility(View.INVISIBLE);
+		if(profile.getGp() == 1 && position > 0){
+			this.<CheckBox>GetView(R.id.use_gp).setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
 	}
 
 

@@ -1,22 +1,33 @@
 package com.uhl;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+
 import com.uhl.calc.Raises;
 import com.uhl.calc.Roll;
 import com.uhl.db.DBHelper;
 import com.uhl.db.Profile;
+import com.uhl.db.Template;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MeleeRollCalculateActivity extends Activity implements OnClickListener {
     @Override
@@ -26,7 +37,8 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
         profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
         setContentView(R.layout.melee_roll_main_screen);
         Setup();        
-        RegisterButtons();        
+        RegisterButtons();   
+        configureTemplates();
     }
 
 	private DBHelper dbHelper;
@@ -37,6 +49,90 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
     private int confidence;
     private boolean[] validation = {true, true};
     private AlertDialog.Builder resultBuilder;
+    private Hashtable<String, Template> templates;
+    private ArrayList<Template> activeTemplates;
+    
+
+	private void configureTemplates() {
+		
+		templates = new Hashtable<String, Template>();
+		activeTemplates = new ArrayList<Template>();
+		Cursor cursor = dbHelper.getTemplates(profile.getId());		
+		if(cursor.getCount() < 1){
+			cursor.close();
+			return;
+		}
+		do{
+			Template aTemplate = new Template(cursor);
+			templates.put(aTemplate.getName(), aTemplate);
+		}while(cursor.moveToNext());
+		cursor.close();
+		
+		String[] templateNames = new String[templates.size()];
+		templates.keySet().toArray(templateNames);
+		
+		ListView lv = this.<ListView>GetView(R.id.template_view);
+		
+		ListAdapter adapter = new ArrayAdapter<String>(this, R.layout.selectable_list_item, templateNames);
+		
+		lv.setAdapter(adapter);
+		lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		
+		lv.setOnItemClickListener(new OnItemClickListener() {
+		    public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+		    {	
+		    	toggleTemplate(templates.get(((CheckedTextView)view).getText().toString()));
+	    	}
+		  	});
+		
+	}
+
+	protected void toggleTemplate(Template template) {
+		if(activeTemplates.contains(template)){
+			activeTemplates.remove(template);
+			calculateTemplates();
+			return;
+		}
+		activeTemplates.add(template);
+		calculateTemplates();
+	}
+
+	private void calculateTemplates() {
+		int agi = profile.getAgility();
+		int ref = profile.getReflexes();
+		int mod = staticMod;
+		int usegp = 0;
+		int useref  = 0;
+		int skillRanks = 0;
+		int rolled = 0;
+		int kept = 0;
+		
+		for (Template t : activeTemplates){			
+			agi += t.getAgility();
+			ref +=t.getReflexes();
+			mod += t.getModifier();
+			usegp += t.getisGp();
+			useref += t.getUseReflexes();
+			skillRanks += t.getSkillRank();
+			rolled += t.getRolled();
+			kept += t.getKept();
+		}
+		int attackTrait = agi;
+		if(useref >= 1){
+			attackTrait = ref;
+		}
+		if(attackTrait <= 0 || (attackTrait - kept) <= 0){
+			roll = new Roll(0,0,0,0,0);
+			SetRollText();
+			return;
+		}
+		usegp = usegp > 0 ? 1: 0;
+		skillRanks = skillRanks > 10 ? 10: skillRanks;
+		
+		
+		roll = new Roll(attackTrait+skillRanks+rolled, attackTrait+kept, mod, 0, usegp);
+		SetRollText();
+	}
 
 	private void RegisterButtons() {
 		(this.<Button>GetView(R.id.calculate)).setOnClickListener(this);
@@ -59,11 +155,13 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
 	       });	       
 	}
 	
-    private void Setup() {
-		roll = new Roll(profile.getAgility(), profile.getAgility(), 0, 0, 0);
+    private void Setup() {	
+    	roll = new Roll(profile.getAgility(), profile.getAgility(), 0, 0, 0);
 		SetRollText();
-		CheckBox luck = this.<CheckBox>GetView(R.id.use_luck);
-		luck.setEnabled(profile.getLuck() == 1);		
+		if(profile.getLuck() == 0){
+			this.<CheckBox>GetView(R.id.use_luck).setVisibility(View.INVISIBLE);
+		}
+				
 		SetupTextListeners();
 		
 		tntbh = Integer.parseInt(this.<EditText>GetView(R.id.tn_box).getText().toString());
