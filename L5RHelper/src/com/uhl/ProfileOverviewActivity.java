@@ -14,7 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class CharacterOverviewActivity extends Activity implements OnClickListener {
+public class ProfileOverviewActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +35,8 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
 	       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
 	      		 dbHelper.deleteProfile(profile.getId()); 
-	      		 CharacterOverviewActivity.this.setResult(Activity.RESULT_OK);  
-	      		 CharacterOverviewActivity.this.finish();
+	      		 ProfileOverviewActivity.this.setResult(Activity.RESULT_OK);  
+	      		 ProfileOverviewActivity.this.finish();
 	           }
 	       })
 	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -65,7 +65,7 @@ public class CharacterOverviewActivity extends Activity implements OnClickListen
 					StartActivityForResult(MeleeRollCalculateActivity.class, profile.getId()); 
 				}
 				break;
-			case R.id.manage_character: StartActivityForResult(NewCharacterActivity.class, profile.getId()); break;
+			case R.id.manage_character: StartActivityForResult(EditCharacterActivity.class, profile.getId()); break;
 			case R.id.manage_templates: StartActivityForResult(ManageTemplateView.class, profile.getId()); break;
 			default: break;
 		}		

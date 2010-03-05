@@ -13,7 +13,7 @@ import com.uhl.db.DBHelper;
 import com.uhl.db.DefaultViews;
 import com.uhl.db.Profile;
 
-public class NewCharacterActivity extends Activity implements OnClickListener{
+public class EditCharacterActivity extends Activity implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

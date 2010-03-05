@@ -36,7 +36,7 @@ public class LoadProfileView extends ListActivity {
 	        int position, long id) {
 	    		int value = profiles.get((String)((TextView) view).getText());
 	    		if ( value == -1) return;
-	    		StartActivity(CharacterOverviewActivity.class, value );
+	    		StartActivity(ProfileOverviewActivity.class, value );
 	    }
 	  });
 	}

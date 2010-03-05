@@ -12,9 +12,9 @@
             </intent-filter>
         </activity>
 
-    <activity android:name=".NewCharacterActivity" android:label="@string/CreateNew" android:screenOrientation="portrait"></activity>
+    <activity android:label="@string/CreateNew" android:screenOrientation="portrait" android:name=".EditCharacterActivity"></activity>
 <activity android:name=".LoadProfileView" android:label="@string/load" android:screenOrientation="portrait"></activity>
-<activity android:name=".CharacterOverviewActivity" android:label="@string/character_overview" android:screenOrientation="portrait"></activity>
+<activity android:label="@string/character_overview" android:screenOrientation="portrait" android:name=".ProfileOverviewActivity"></activity>
 <activity android:label="@string/roll_calculations" android:name=".MeleeRollCalculateActivity" android:screenOrientation="portrait"></activity>
 <activity android:name=".ManageTemplateView" android:label="@string/template_manager" android:screenOrientation="portrait"></activity>
 <activity android:name=".EditTemplateActivity" android:label="@string/template_manager" android:screenOrientation="portrait"></activity>
