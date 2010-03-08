@@ -235,8 +235,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	public boolean profileNameExists(String name, int id) {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
-		Cursor cursor = db2.rawQuery("select * from Profiles where name = ? and _id != ?", new String[]{name, String.valueOf(id)});
-		boolean result = cursor.getCount() == 1;		
+		Cursor cursor = db2.rawQuery("select * from Profiles where upper(name) = upper(?) and _id != ?", new String[]{name, String.valueOf(id)});
+		boolean result = cursor.getCount() >= 1;		
 		this.close();
 		cursor.close();		
 		return result;
@@ -245,10 +245,10 @@ public class DBHelper extends SQLiteOpenHelper {
 	public boolean templateNameExists(String name, int id, int profileId) {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
-		Cursor cursor = db2.rawQuery("select * from Templates where name = ? and profileId != ? and _id != ?", 
+		Cursor cursor = db2.rawQuery("select * from Templates where upper(name) = upper(?) and profileId = ? and _id != ?", 
 				new String[]{name, String.valueOf(profileId),String.valueOf(id)}
 		);
-		boolean result = cursor.getCount() == 1;		
+		boolean result = cursor.getCount() >= 1;		
 		this.close();
 		cursor.close();		
 		return result;
