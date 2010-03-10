@@ -17,4 +17,9 @@ public class Raises {
 			return -1;
 		return (highest - target) / 5;
 	}
+
+	public static double[] CalculateRange(Context ctx,	Roll roll, int range, int tn) {
+		Histogram h = new Histogram(roll, ctx);
+		return h.getRangeRaises(range, tn-roll.getStatMod());
+	}
 }

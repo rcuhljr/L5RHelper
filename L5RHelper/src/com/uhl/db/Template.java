@@ -15,6 +15,7 @@ public class Template {
 	private int kept = 0;
 	private int isGp =0;
 	private int skillRank = 0;
+	private int castingRing = 0;
 	
 	public Template(int profileId){
 		setProfileId(profileId);		
@@ -32,6 +33,7 @@ public class Template {
 		setModifier(cursor.getInt(8));
 		setRolled(cursor.getInt(9));
 		setKept(cursor.getInt(10));
+		setCastingRing(cursor.getInt(11));
 	}
 
 	public void setId(int _id) {
@@ -120,5 +122,13 @@ public class Template {
 
 	public int getSkillRank() {
 		return skillRank;
+	}
+
+	public void setCastingRing(int castingRing) {
+		this.castingRing = castingRing;
+	}
+
+	public int getCastingRing() {
+		return castingRing;
 	}
 }

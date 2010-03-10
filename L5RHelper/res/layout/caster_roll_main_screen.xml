@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/roll_label" android:text="@string/roll" android:layout_marginTop="12px" android:layout_marginLeft="3px"></TextView>
+<TextView android:layout_height="wrap_content" android:layout_toRightOf="@+id/roll_label" android:layout_width="wrap_content" android:layout_marginLeft="10px" android:id="@+id/roll_text" android:text="tempstring" android:layout_marginTop="12px"></TextView><EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/range_box" android:layout_alignParentRight="true" android:layout_marginRight="10px" android:width="45px" android:maxLines="1" android:scrollHorizontally="true" android:scrollbarStyle="outsideOverlay" android:layout_below="@+id/roll_label" android:text="@string/default_range" android:lines="1" android:inputType="number" android:digits="@string/digits"></EditText>
+<TextView android:layout_below="@+id/range_box" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/spell_rank_label" android:text="@string/spell_rank" android:layout_toLeftOf="@+id/spell_rank_spin" android:layout_marginTop="12dip"></TextView><Spinner android:layout_below="@+id/range_box" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/spell_rank_spin" android:layout_toLeftOf="@+id/use_luck" android:entries="@array/spell_ranks"></Spinner><EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:width="45px" android:maxLines="1" android:scrollHorizontally="true" android:scrollbarStyle="outsideOverlay" android:layout_below="@+id/roll_label" android:id="@+id/raises_box" android:layout_toLeftOf="@+id/range_label" android:text="@string/default_raises" android:layout_marginRight="20dip" android:inputType="number" android:digits="@string/digits"></EditText>
+<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/roll_label" android:layout_toLeftOf="@+id/raises_box" android:layout_marginTop="12px" android:id="@+id/raises_label" android:layout_alignParentRight="false" android:layout_marginRight="3px" android:text="@string/raises"></TextView><CheckBox android:layout_below="@+id/range_box" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/use_luck" android:text="@string/use_luck" android:layout_alignParentRight="true" android:layout_marginRight="3dip"></CheckBox><EditText android:layout_below="@+id/range_box" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/zero" android:id="@+id/misc_mods" android:width="45px" android:layout_marginRight="3px" android:maxLines="1" android:scrollHorizontally="true" android:scrollbarStyle="outsideOverlay" android:layout_toLeftOf="@+id/spell_rank_label" android:inputType="numberSigned" android:digits="@string/digits_withnegative"></EditText><ListView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true" android:id="@+id/template_view" android:layout_below="@+id/calculate"></ListView><TextView android:layout_toLeftOf="@+id/misc_mods" android:layout_below="@+id/range_box" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/misc_mods_label" android:layout_marginTop="12px" android:text="@string/mods"></TextView><Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/calculate" android:layout_marginRight="3px" android:id="@+id/calculate" android:layout_below="@+id/misc_mods" android:layout_centerHorizontal="true"></Button><TextView android:layout_toLeftOf="@+id/range_box" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/range_label" android:layout_marginTop="12px" android:layout_marginRight="3px" android:layout_below="@+id/roll_label" android:text="@string/raise_range"></TextView>
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

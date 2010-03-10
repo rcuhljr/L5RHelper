@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="digits">0123456789</string>
+    <string name="digits_withnegative">0123456789-</string>
+    <string name="default_range">2</string>
+    <string name="raise_range">Result Size(0-3)</string>
+    <string name="mods">Mods</string>
+    <string name="spell_rank">Spell Rank</string>
+    <string name="default_raises">5</string>
+    <string name="success_rate">Success Chance(1-100)</string>
+    <string name="raises">Raises</string>
+    <string name="casting_ring">Casting Ring</string>
     <string name="delete_template">Delete Template</string>
     <string name="illegal_template_name">illegal template name</string>
     <string name="new_template">New Template</string>

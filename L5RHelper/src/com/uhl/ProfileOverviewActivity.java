@@ -63,6 +63,8 @@ public class ProfileOverviewActivity extends Activity implements OnClickListener
 			case R.id.go_calculate:
 				if(profile.getDefaultViewId() == DefaultViews.melee.getId()){
 					StartActivityForResult(MeleeRollCalculateActivity.class, profile.getId()); 
+				}else{
+					StartActivityForResult(CasterRollCalculateActivity.class, profile.getId());
 				}
 				break;
 			case R.id.manage_character: StartActivityForResult(EditCharacterActivity.class, profile.getId()); break;

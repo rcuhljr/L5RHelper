@@ -258,7 +258,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
 		Cursor cursor = db2.rawQuery(
-				"select _id, profileId, name, reflexes, agility, useReflexes, skillRank, isGp, modifier, rolled, kept from Templates where profileId = ?",
+				"select _id, profileId, name, reflexes, agility, useReflexes, skillRank, isGp, modifier, rolled, kept, castingRing from Templates where profileId = ?",
 				new String[] { String.valueOf(profileId)});
 		cursor.moveToFirst();
 		this.close();
@@ -270,7 +270,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
 		Cursor cursor = db2.rawQuery(
-				"select _id, profileId, name, reflexes, agility, useReflexes, skillRank, isGp, modifier, rolled, kept from Templates where _id = ?",
+				"select _id, profileId, name, reflexes, agility, useReflexes, skillRank, isGp, modifier, rolled, kept, castingRing from Templates where _id = ?",
 				new String[] { String.valueOf(id)});
 		cursor.moveToFirst();
 		this.close();		
@@ -286,19 +286,20 @@ public void saveTemplate(Template template){
 		
 		if(template.getId() == -1){
 			//create
-			insertString = "insert into Templates values (null,?,?,?,?,?,?,?,?,?,?)";
+			insertString = "insert into Templates values (null,?,?,?,?,?,?,?,?,?,?,?)";
 			values = new String[] {String.valueOf(template.getProfileId()),String.valueOf(template.getName()),
 					String.valueOf(template.getReflexes()),String.valueOf(template.getAgility()),String.valueOf(template.getUseReflexes()),
 					String.valueOf(template.getSkillRank()),String.valueOf(template.getisGp()),String.valueOf(template.getModifier()),
-					String.valueOf(template.getRolled()),String.valueOf(template.getKept())};
+					String.valueOf(template.getRolled()),String.valueOf(template.getKept()),String.valueOf(template.getCastingRing())};
 		}else
 		{
 			//update
-			insertString = "update Templates set name = ?, reflexes = ?, agility = ?, useReflexes = ?, skillRank = ?, isGp = ?, modifier = ?, rolled = ?, kept = ? where _id = ?";
+			insertString = "update Templates set name = ?, reflexes = ?, agility = ?, useReflexes = ?, skillRank = ?, isGp = ?, modifier = ?, rolled = ?, kept = ?, castingRing = ? where _id = ?";
 			values = new String[] {String.valueOf(template.getName()),
 					String.valueOf(template.getReflexes()),String.valueOf(template.getAgility()),String.valueOf(template.getUseReflexes()),
 					String.valueOf(template.getSkillRank()),String.valueOf(template.getisGp()),String.valueOf(template.getModifier()),
-					String.valueOf(template.getRolled()),String.valueOf(template.getKept()), String.valueOf(template.getId())};
+					String.valueOf(template.getRolled()),String.valueOf(template.getKept()),String.valueOf(template.getCastingRing()), 
+					String.valueOf(template.getId())};
 		}		
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getWritableDatabase();

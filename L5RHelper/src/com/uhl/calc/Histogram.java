@@ -51,4 +51,23 @@ public class Histogram {
 		}
 		return result;
 	}
+
+	public double[] getRangeRaises(int range, int tn) {
+		double[] result = new double[1+range*2];
+		if (this.histogram.length == 0)
+			return null;
+		int count = 0;
+		int accum = 0;
+		int tnval = 0;
+		while (count < result.length) {			
+			accum += this.histogram[tnval];
+			while(tnval >= (count*5+(tn-range*5))){
+				result[count] = 100.0-((double)accum)/(double)Histogram.SCALING_FACTOR*100.0;
+				count++;
+			}			
+			tnval++;		
+		}
+		return result;
+		
+	}
 }

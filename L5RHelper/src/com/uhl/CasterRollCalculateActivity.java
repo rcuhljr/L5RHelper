@@ -26,16 +26,17 @@ import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class MeleeRollCalculateActivity extends Activity implements OnClickListener {
+public class CasterRollCalculateActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);        
         dbHelper = new DBHelper(this);
         profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
-        setContentView(R.layout.melee_roll_main_screen);
+        setContentView(R.layout.caster_roll_main_screen);
         Setup();        
         RegisterButtons();   
         configureTemplates();
@@ -45,8 +46,8 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
     private Profile profile;
     private Roll roll;
     private int staticMod = 0;
-    private int tntbh;
-    private int confidence;
+    private int raises;
+    private int range;
     private boolean[] validation = {true, true};
     private AlertDialog.Builder resultBuilder;
     private Hashtable<String, Template> templates;
@@ -98,39 +99,34 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
 	}
 
 	private void calculateTemplates() {
-		int agi = profile.getAgility();
-		int ref = profile.getReflexes();
-		int mod = staticMod;
-		int usegp = 0;
-		int useref  = 0;
-		int skillRanks = 0;
+		int castingStat = 0;
+		int mod = staticMod;		
 		int rolled = 0;
 		int kept = 0;
 		
-		for (Template t : activeTemplates){			
-			agi += t.getAgility();
-			ref +=t.getReflexes();
-			mod += t.getModifier();
-			usegp += t.getisGp();
-			useref += t.getUseReflexes();
-			skillRanks += t.getSkillRank();
+		for (Template t : activeTemplates){
+			int casting = t.getCastingRing();
+			switch(casting){
+				case 0:break;
+				case 1:castingStat = profile.getEarthRing(); break;
+				case 2:castingStat = profile.getWaterRing();break;
+				case 3:castingStat = profile.getFireRing();break;
+				case 4:castingStat = profile.getAirRing();break;
+				case 5:castingStat = profile.getVoidRing();break;
+				default:break;
+			}
+			
+			mod += t.getModifier();			
 			rolled += t.getRolled();
 			kept += t.getKept();
-		}
-		int attackTrait = agi;
-		if(useref >= 1){
-			attackTrait = ref;
-		}
-		if(attackTrait <= 0 || (attackTrait + kept) <= 0){
+		}		
+		if(castingStat <= 0 || (castingStat + kept) <= 0){
 			roll = new Roll(0,0,0,0,0);
 			SetRollText();
 			return;
 		}
-		usegp = usegp > 0 ? 1: 0;
-		skillRanks = skillRanks > 10 ? 10: skillRanks;
 		
-		
-		roll = new Roll(attackTrait+skillRanks+rolled, attackTrait+kept, mod, 0, usegp);
+		roll = new Roll(castingStat+rolled, castingStat+kept, mod, 0, 0);
 		SetRollText();
 	}
 
@@ -138,12 +134,13 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
 		(this.<Button>GetView(R.id.calculate)).setOnClickListener(this);
 	}    
 	
-	private void SetupResultDialog(int raises){
-		String message;
-		if(raises >= 0){
-			message = "Assuming a target with TN:"+tntbh+" You can hit "+raises+" raises "+confidence+"% of the time.";
-		}else{
-			message = "Assuming a target with TN:"+tntbh+" You can't hit it with "+confidence+"% confidence.";
+	private void SetupResultDialog(int raises, double[] probs, int tn){
+		String message = "Chance to succed";
+		
+		for(int i = 0; i < (range*2)+1; i++){
+			if(raises-range+i >= 0){
+				message += "\nraises:"+(raises-range+i)+" %:"+Math.round(probs[i]);
+			}			
 		}
 		
 		resultBuilder = new AlertDialog.Builder(this);		
@@ -156,7 +153,7 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
 	}
 	
     private void Setup() {	
-    	roll = new Roll(profile.getAgility(), profile.getAgility(), 0, 0, 0);
+    	roll = new Roll(0, 0, 0, 0, 0);
 		SetRollText();
 		if(profile.getLuck() == 0){
 			this.<CheckBox>GetView(R.id.use_luck).setVisibility(View.INVISIBLE);
@@ -164,8 +161,8 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
 				
 		SetupTextListeners();
 		
-		tntbh = Integer.parseInt(this.<EditText>GetView(R.id.tn_box).getText().toString());
-		confidence = Integer.parseInt(this.<EditText>GetView(R.id.confidence_box).getText().toString());		
+		raises = Integer.parseInt(this.<EditText>GetView(R.id.raises_box).getText().toString());
+		range = Integer.parseInt(this.<EditText>GetView(R.id.range_box).getText().toString());		
 			
 	}
 
@@ -188,14 +185,14 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
 			public void beforeTextChanged(CharSequence s, int start, int count, int after){}
 			public void onTextChanged(CharSequence s, int start, int before, int count){}
 		};
-		TextWatcher confidenceMonitor = new TextWatcher(){
+		TextWatcher rangeMonitor = new TextWatcher(){
 			public void afterTextChanged(Editable s) {
 				int newValue;
 				try{
 					newValue = Integer.parseInt(s.toString());
-					if(newValue >= 1 && newValue <= 100){
+					if(newValue >= 0 && newValue <= 3){
 						validationMonitor(0, true);
-						confidence = newValue;
+						range = newValue;
 						return;
 					}
 					
@@ -208,14 +205,14 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
 			public void onTextChanged(CharSequence s, int start, int before, int count){}
 		};
 		
-		TextWatcher tntbhMonitor = new TextWatcher(){
+		TextWatcher raisesMonitor = new TextWatcher(){
 			public void afterTextChanged(Editable s) {
 				int newValue;
 				try{
 					newValue = Integer.parseInt(s.toString());
-					if(newValue >= 0){
+					if((10 >= newValue) && (newValue >= 0)){
 						validationMonitor(1, true);
-						tntbh = newValue;
+						raises = newValue;
 						return;
 					}
 					
@@ -230,8 +227,8 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
 		
 		
 		this.<EditText>GetView(R.id.misc_mods).addTextChangedListener(mods);
-		this.<EditText>GetView(R.id.confidence_box).addTextChangedListener(confidenceMonitor);
-		this.<EditText>GetView(R.id.tn_box).addTextChangedListener(tntbhMonitor);
+		this.<EditText>GetView(R.id.range_box).addTextChangedListener(rangeMonitor);
+		this.<EditText>GetView(R.id.raises_box).addTextChangedListener(raisesMonitor);
 	}
 	
 	private void validationMonitor(int field, boolean valid){
@@ -271,7 +268,9 @@ public class MeleeRollCalculateActivity extends Activity implements OnClickListe
 		int luck = this.<CheckBox>GetView(R.id.use_luck).isChecked()? 1 : 0;
 		roll.setLuck(luck);	
 		
-		SetupResultDialog(Raises.calculateRaises(this, tntbh, roll, confidence));		
+		int tn = (this.<Spinner>GetView(R.id.spell_rank_spin).getSelectedItemPosition()+1)*5+10+5*raises;
+		
+		SetupResultDialog(raises, Raises.CalculateRange(this, roll, range, tn), tn);		
 		AlertDialog result = resultBuilder.create();
 		
 		result.show();

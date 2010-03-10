@@ -19,6 +19,7 @@
 <activity android:name=".ManageTemplateView" android:label="@string/template_manager" android:screenOrientation="portrait"></activity>
 <activity android:name=".EditTemplateActivity" android:label="@string/template_manager" android:screenOrientation="portrait"></activity>
 
+<activity android:name=".CasterRollCalculateActivity" android:label="@string/roll_calculations"></activity>
 </application>
     <uses-sdk android:minSdkVersion="6" />
 
