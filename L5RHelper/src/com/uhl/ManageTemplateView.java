@@ -13,7 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.uhl.db.DBHelper;
+import com.uhl.db.DBServiceLocator;
+import com.uhl.db.IDBHelper;
 import com.uhl.db.Profile;
 
 public class ManageTemplateView extends ListActivity {
@@ -21,7 +22,7 @@ public class ManageTemplateView extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  
-	  dbHelper = new DBHelper(this);
+	  dbHelper = DBServiceLocator.getDBHelper(this);
 	  profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
 	  
 	  initView();
@@ -80,7 +81,7 @@ public class ManageTemplateView extends ListActivity {
 		cursor.close();
 	}
 
-	private DBHelper dbHelper;
+	private IDBHelper dbHelper;
 	private Hashtable<String, Integer> templates;
 	private Profile profile;
 	

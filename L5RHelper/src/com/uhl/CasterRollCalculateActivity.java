@@ -5,7 +5,8 @@ import java.util.Hashtable;
 
 import com.uhl.calc.Raises;
 import com.uhl.calc.Roll;
-import com.uhl.db.DBHelper;
+import com.uhl.db.DBServiceLocator;
+import com.uhl.db.IDBHelper;
 import com.uhl.db.Profile;
 import com.uhl.db.Template;
 
@@ -34,7 +35,7 @@ public class CasterRollCalculateActivity extends Activity implements OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);        
-        dbHelper = new DBHelper(this);
+        dbHelper = DBServiceLocator.getDBHelper(this);
         profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
         setContentView(R.layout.caster_roll_main_screen);
         Setup();        
@@ -42,7 +43,7 @@ public class CasterRollCalculateActivity extends Activity implements OnClickList
         configureTemplates();
     }
 
-	private DBHelper dbHelper;
+	private IDBHelper dbHelper;
     private Profile profile;
     private Roll roll;
     private int staticMod = 0;

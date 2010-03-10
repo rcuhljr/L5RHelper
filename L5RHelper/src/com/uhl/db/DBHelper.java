@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.uhl.calc.Roll;
 
 //adapted from writeup at: http://www.reigndesign.com/blog/using-your-own-sqlite-database-in-android-applications/
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper implements IDBHelper {
 
 	private static final String DB_NAME = "data.db3";
 	private static final String DB_PATH = "/data/data/com.uhl/databases/";
@@ -31,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		} catch (IOException e) { 
 			e.printStackTrace();
 		}
-	}
+	}	
 
 	public void createDataBase() throws IOException {
 
@@ -148,6 +148,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		onCreate(arg0);
 	}
 	//Is this the proper place for these?
+	/* (non-Javadoc)
+	 * @see com.uhl.db.IDBHelper#saveProfile(com.uhl.db.Profile)
+	 */
 	public void saveProfile(Profile profile){
 		
 		String insertString = "";
@@ -176,6 +179,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		this.close();
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.uhl.db.IDBHelper#loadProfile(int)
+	 */
 	public Profile loadProfile(int id){
 		
 		this.openDataBase();
@@ -190,6 +196,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.uhl.db.IDBHelper#getHistogram(com.uhl.calc.Roll)
+	 */
 	public Cursor getHistogram(Roll roll) {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
@@ -204,6 +213,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		return cursor;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.uhl.db.IDBHelper#getProfiles()
+	 */
 	public Cursor getProfiles(){
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
@@ -213,6 +225,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		return cursor;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.uhl.db.IDBHelper#deleteProfile(int)
+	 */
 	public void deleteProfile(int id) {				
 	
 		String deleteString = "delete from Profiles where _id = ?";
@@ -223,6 +238,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		this.close();		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.uhl.db.IDBHelper#getTemplateNames(int)
+	 */
 	public Cursor getTemplateNames(int profileId) {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
@@ -232,6 +250,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		return cursor;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.uhl.db.IDBHelper#profileNameExists(java.lang.String, int)
+	 */
 	public boolean profileNameExists(String name, int id) {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
@@ -242,6 +263,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.uhl.db.IDBHelper#templateNameExists(java.lang.String, int, int)
+	 */
 	public boolean templateNameExists(String name, int id, int profileId) {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
@@ -254,6 +278,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.uhl.db.IDBHelper#getTemplates(int)
+	 */
 	public Cursor getTemplates(int profileId) {
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
@@ -265,6 +292,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		return cursor;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.uhl.db.IDBHelper#loadTemplate(int)
+	 */
 	public Template loadTemplate(int id) {
 		
 		this.openDataBase();
@@ -279,6 +309,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		return result;
 	}
 	
+/* (non-Javadoc)
+ * @see com.uhl.db.IDBHelper#saveTemplate(com.uhl.db.Template)
+ */
 public void saveTemplate(Template template){
 		
 		String insertString = "";
@@ -307,6 +340,9 @@ public void saveTemplate(Template template){
 		this.close();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.uhl.db.IDBHelper#deleteTemplate(java.lang.Integer, java.lang.Integer)
+	 */
 	public void deleteTemplate(Integer id, Integer profileId) {				
 		
 		String deleteString = "delete from Templates where _id = ? and profileId = ?";

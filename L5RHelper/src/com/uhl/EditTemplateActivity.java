@@ -14,8 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import com.uhl.db.DBHelper;
+import com.uhl.db.DBServiceLocator;
 import com.uhl.db.DefaultViews;
+import com.uhl.db.IDBHelper;
 import com.uhl.db.Profile;
 import com.uhl.db.Template;
 
@@ -24,7 +25,7 @@ public class EditTemplateActivity extends Activity implements OnClickListener, O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_template);
-        dbHelper = new DBHelper(this);
+        dbHelper = DBServiceLocator.getDBHelper(this);
         Bundle info = getIntent().getExtras();
         int id = info.getInt("ID");
         int profileId = info.getInt("PROFILE_ID");
@@ -83,7 +84,7 @@ public class EditTemplateActivity extends Activity implements OnClickListener, O
 
 	private Profile profile;
 	private Template template;
-	private DBHelper dbHelper;	 
+	private IDBHelper dbHelper;	 
 	private TextView errorLabel;
 	private TextView traitLabel;
 	private Spinner traitSpinner;

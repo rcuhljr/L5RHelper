@@ -9,8 +9,9 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import com.uhl.db.DBHelper;
+import com.uhl.db.DBServiceLocator;
 import com.uhl.db.DefaultViews;
+import com.uhl.db.IDBHelper;
 import com.uhl.db.Profile;
 
 public class EditCharacterActivity extends Activity implements OnClickListener{
@@ -18,7 +19,7 @@ public class EditCharacterActivity extends Activity implements OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_character);
-        dbHelper = new DBHelper(this);
+        dbHelper = DBServiceLocator.getDBHelper(this);
         Bundle info = getIntent().getExtras();
         int id;
         if(info != null){
@@ -46,7 +47,7 @@ public class EditCharacterActivity extends Activity implements OnClickListener{
 	}
 
 	private Profile profile;
-	private DBHelper dbHelper;
+	private IDBHelper dbHelper;
 	private boolean existingProfile = false; 
 	
 

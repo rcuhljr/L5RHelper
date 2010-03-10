@@ -1,7 +1,8 @@
 package com.uhl;
 
-import com.uhl.db.DBHelper;
+import com.uhl.db.DBServiceLocator;
 import com.uhl.db.DefaultViews;
+import com.uhl.db.IDBHelper;
 import com.uhl.db.Profile;
 
 import android.app.Activity;
@@ -18,7 +19,7 @@ public class ProfileOverviewActivity extends Activity implements OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbHelper = new DBHelper(this);
+        dbHelper = DBServiceLocator.getDBHelper(this);
         profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
         setContentView(R.layout.display_profile_data);
         DisplayData();        
@@ -103,5 +104,5 @@ public class ProfileOverviewActivity extends Activity implements OnClickListener
 	}
 
 	private Profile profile;
-	private DBHelper dbHelper;
+	private IDBHelper dbHelper;
 }

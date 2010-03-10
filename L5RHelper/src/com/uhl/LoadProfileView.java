@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.uhl.db.DBHelper;
+import com.uhl.db.IDBHelper;
 
 public class LoadProfileView extends ListActivity {
 	@Override
@@ -65,7 +66,7 @@ public class LoadProfileView extends ListActivity {
 		cursor.close();
 	}
 
-	private DBHelper dbHelper;
+	private IDBHelper dbHelper;
 	private Hashtable<String, Integer> profiles = new Hashtable<String, Integer>();
 	
 }

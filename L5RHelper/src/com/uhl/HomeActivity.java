@@ -14,7 +14,11 @@ public class HomeActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         RegisterButtons();
-    }   
+    }
+    
+    public HomeActivity(){
+    	
+    }
 
 
 	private void RegisterButtons() {
