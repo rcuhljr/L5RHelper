@@ -92,7 +92,25 @@ public class EditCharacterActivity extends Activity implements OnClickListener{
 		int luck = GetValue(R.id.spin_luck);
 		int gp = GetValue(R.id.spin_gp);
 		
-		profile.SetStats(eRing, wRing, fRing, aRing, vRing, ref, agi, luck, gp);
+		if(eRing > 0)
+			profile.setEarthRing(eRing);
+		if(wRing > 0)
+			profile.setEarthRing(wRing);
+		if(fRing > 0)
+			profile.setEarthRing(fRing);
+		if(aRing > 0)
+			profile.setEarthRing(aRing);
+		if(vRing > 0)
+			profile.setEarthRing(vRing);
+		if(ref > 0)
+			profile.setEarthRing(ref);
+		if(agi > 0)
+			profile.setEarthRing(agi);
+		if(luck > 0)
+			profile.setEarthRing(luck);
+		if(gp > 0)
+			profile.setEarthRing(gp);
+		
 		dbHelper.saveProfile(profile);
 		//#todo transition to character loaded main screen.
 		this.finish();

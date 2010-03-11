@@ -151,7 +151,7 @@ public class DBHelper extends SQLiteOpenHelper implements IDBHelper {
 	/* (non-Javadoc)
 	 * @see com.uhl.db.IDBHelper#saveProfile(com.uhl.db.Profile)
 	 */
-	public void saveProfile(Profile profile){
+	public boolean saveProfile(Profile profile){
 		
 		String insertString = "";
 		String[] values = new String[0];
@@ -175,8 +175,14 @@ public class DBHelper extends SQLiteOpenHelper implements IDBHelper {
 		}		
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getWritableDatabase();
-		db2.execSQL(insertString, values);						
-		this.close();
+		try {
+			db2.execSQL(insertString, values);						
+			this.close();
+			return true;
+		} catch (SQLException e) {
+			this.close();
+			return false;
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -228,14 +234,20 @@ public class DBHelper extends SQLiteOpenHelper implements IDBHelper {
 	/* (non-Javadoc)
 	 * @see com.uhl.db.IDBHelper#deleteProfile(int)
 	 */
-	public void deleteProfile(int id) {				
+	public boolean deleteProfile(int id) {				
 	
 		String deleteString = "delete from Profiles where _id = ?";
 		String[] values = new String[] {String.valueOf(id)};				
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getWritableDatabase();
-		db2.execSQL(deleteString, values);						
-		this.close();		
+		try {
+			db2.execSQL(deleteString, values);						
+			this.close();	
+			return true;
+		} catch (SQLException e) {
+			this.close();
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -312,7 +324,7 @@ public class DBHelper extends SQLiteOpenHelper implements IDBHelper {
 /* (non-Javadoc)
  * @see com.uhl.db.IDBHelper#saveTemplate(com.uhl.db.Template)
  */
-public void saveTemplate(Template template){
+public boolean saveTemplate(Template template){
 		
 		String insertString = "";
 		String[] values = new String[0];
@@ -336,21 +348,33 @@ public void saveTemplate(Template template){
 		}		
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getWritableDatabase();
-		db2.execSQL(insertString, values);						
-		this.close();
+		try{
+			db2.execSQL(insertString, values);						
+			this.close();
+			return true;
+		}catch(Exception e){
+			this.close();
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)
 	 * @see com.uhl.db.IDBHelper#deleteTemplate(java.lang.Integer, java.lang.Integer)
 	 */
-	public void deleteTemplate(Integer id, Integer profileId) {				
+	public boolean deleteTemplate(Integer id, Integer profileId) {				
 		
 		String deleteString = "delete from Templates where _id = ? and profileId = ?";
 		String[] values = new String[] {id.toString(), profileId.toString()};				
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getWritableDatabase();
-		db2.execSQL(deleteString, values);						
-		this.close();		
+		try {
+			db2.execSQL(deleteString, values);						
+			this.close();
+			return true;
+		} catch (SQLException e) {
+			this.close();
+			return false;
+		}		
 	}
 
 }

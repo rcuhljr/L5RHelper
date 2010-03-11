@@ -6,7 +6,7 @@ import com.uhl.calc.Roll;
 
 public interface IDBHelper {
 
-	public abstract void saveProfile(Profile profile);
+	public abstract boolean saveProfile(Profile profile);
 
 	public abstract Profile loadProfile(int id);
 
@@ -14,7 +14,7 @@ public interface IDBHelper {
 
 	public abstract Cursor getProfiles();
 
-	public abstract void deleteProfile(int id);
+	public abstract boolean deleteProfile(int id);
 
 	public abstract Cursor getTemplateNames(int profileId);
 
@@ -27,8 +27,8 @@ public interface IDBHelper {
 
 	public abstract Template loadTemplate(int id);
 
-	public abstract void saveTemplate(Template template);
+	public abstract boolean saveTemplate(Template template);
 
-	public abstract void deleteTemplate(Integer id, Integer profileId);
+	public abstract boolean deleteTemplate(Integer id, Integer profileId);
 
 }
