@@ -109,5 +109,10 @@ TemplateRing/TraitBonus
       to run. You will probably want to commit your data even more aggressively at key times during your activity's
       lifecycle: for example before starting a new activity, before finishing your own activity, when the user switches 
       between input fields, etc."
-
+ 
+    Incorporate buttons into the context menu. allow template editing from roll screen through context menu.
+    
+    Set up defaults/favorites options.
+    
+    replace zeros with empty text boxes.
     
