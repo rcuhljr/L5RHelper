@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="color_error_red">#F11</string>
     <string name="digits">0123456789</string>
     <string name="digits_withnegative">0123456789-</string>
     <string name="default_range">2</string>

@@ -31,7 +31,7 @@ public class HomeActivityTest extends ActivityInstrumentationTestCase2<HomeActiv
 		DBServiceLocator.setDBHelper(mockDb);
 	}
 	
-	public void testCreateCharacterWorks(){		 
+	public void testCreateCharacterDetectsExistingName(){		 
 		EasyMock.expect(mockDb.profileNameExists("A Test Name", -1)).andReturn(true);
 		PowerMock.replayAll();
 		solo.clickOnButton("Create New Character");

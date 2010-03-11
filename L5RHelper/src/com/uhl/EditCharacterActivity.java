@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.uhl.db.DBServiceLocator;
 import com.uhl.db.DefaultViews;
@@ -32,7 +33,9 @@ public class EditCharacterActivity extends Activity implements OnClickListener{
         }else{
         	profile = new Profile(null, -1);
         }
-        RegisterButtons();        
+        RegisterButtons();
+        
+        errorLabel = this.<TextView>GetView(R.id.error_message_create_char);
     }
            
 	private void configName() {
@@ -49,6 +52,7 @@ public class EditCharacterActivity extends Activity implements OnClickListener{
 	private Profile profile;
 	private IDBHelper dbHelper;
 	private boolean existingProfile = false; 
+	private TextView errorLabel;
 	
 
 	private void RegisterButtons() {
@@ -116,12 +120,12 @@ public class EditCharacterActivity extends Activity implements OnClickListener{
 	private void SubmitPressed() {
 		EditText nameBox = this.<EditText>GetView(R.id.char_name); 
 		String name = nameBox.getText().toString();
-		if(name == null || name .equals("") || name.equals(getString(R.string.error_no_name))){
-			nameBox.setText(getString(R.string.error_no_name));
+		if(name == null || name .equals("")){
+			errorLabel.setText(getString(R.string.error_no_name));
 			return;
 		}
 		if(dbHelper.profileNameExists(name, profile.getId())){
-			nameBox.setText(getString(R.string.name_in_use));
+			errorLabel.setText(getString(R.string.name_in_use));			
 			return;
 		
 		}

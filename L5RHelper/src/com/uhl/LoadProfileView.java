@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.uhl.db.DBHelper;
+import com.uhl.db.DBServiceLocator;
 import com.uhl.db.IDBHelper;
 
 public class LoadProfileView extends ListActivity {
@@ -21,7 +21,7 @@ public class LoadProfileView extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  
-	  dbHelper = new DBHelper(this);
+	  dbHelper = DBServiceLocator.getDBHelper(this);
 	  
 	  BuildUserTable();
 	  String[] names = new String[profiles.keySet().size()];
