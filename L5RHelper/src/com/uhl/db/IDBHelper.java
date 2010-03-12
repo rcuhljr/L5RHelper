@@ -12,7 +12,7 @@ public interface IDBHelper {
 
 	public abstract Cursor getHistogram(Roll roll);
 
-	public abstract Cursor getProfiles();
+	public abstract Profile[] getProfiles();
 
 	public abstract boolean deleteProfile(int id);
 

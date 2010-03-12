@@ -4,7 +4,6 @@ import java.util.Hashtable;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.uhl.db.DBServiceLocator;
 import com.uhl.db.IDBHelper;
+import com.uhl.db.Profile;
 
 public class LoadProfileView extends ListActivity {
 	@Override
@@ -55,15 +55,17 @@ public class LoadProfileView extends ListActivity {
 	}
 	
 	private void BuildUserTable() {
-		Cursor cursor = dbHelper.getProfiles();
-		if(cursor.getCount() < 1){
+		Profile[] profileSet = dbHelper.getProfiles();
+		if(profileSet.length < 1){
 			profiles.put("No Profiles", -1);
 			return;
 		}
-		do{
-			profiles.put(cursor.getString(1), cursor.getInt(0));
-		}while(cursor.moveToNext());
-		cursor.close();
+		for(Profile profile : profileSet){
+			profiles.put(profile.getName(), profile.getId());			
+		}
+		
+		
+		
 	}
 
 	private IDBHelper dbHelper;

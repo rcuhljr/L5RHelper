@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="C:/GitRepos/L5RHelper/L5RHelperTest/libs/powermock/easymock-2.5.2.jar"/>
 	<classpathentry kind="lib" path="C:/GitRepos/L5RHelper/L5RHelperTest/libs/powermock/easymockclassextension-2.4.jar"/>
 	<classpathentry kind="lib" path="C:/GitRepos/L5RHelper/L5RHelperTest/libs/powermock/objenesis-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/L5RHelper/L5RHelperTest/libs/junit-4.8.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

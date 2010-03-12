@@ -222,13 +222,19 @@ public class DBHelper extends SQLiteOpenHelper implements IDBHelper {
 	/* (non-Javadoc)
 	 * @see com.uhl.db.IDBHelper#getProfiles()
 	 */
-	public Cursor getProfiles(){
+	public Profile[] getProfiles(){
 		this.openDataBase();
 		SQLiteDatabase db2 = this.getReadableDatabase();
 		Cursor cursor = db2.rawQuery("select _id, name from Profiles", new String[0]);
 		cursor.moveToFirst();
 		this.close();		
-		return cursor;
+		Profile[] result = new Profile[cursor.getCount()];
+		for(int i = 0; i < cursor.getCount(); i++){
+			result[i] = new Profile(cursor.getString(1), cursor.getInt(0));
+			cursor.moveToNext();
+		}
+		cursor.close();
+		return result;
 	}
 
 	/* (non-Javadoc)

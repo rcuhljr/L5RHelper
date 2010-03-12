@@ -14,7 +14,6 @@ import com.uhl.db.IDBHelper;
 import com.uhl.db.Profile;
 import com.uhl.test.utils.ProfileEquals;
 
-
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 
@@ -32,6 +31,7 @@ public class HomeActivityTest extends ActivityInstrumentationTestCase2<HomeActiv
 		mockDb = PowerMock.createMock(IDBHelper.class);
 		DBServiceLocator.setDBHelper(mockDb);
 	}
+	
 	
 	public void testCreateCharacterShouldDetectExistingName(){		 
 		EasyMock.expect(mockDb.profileNameExists("A Test Name", -1)).andReturn(true);
@@ -93,6 +93,23 @@ public class HomeActivityTest extends ActivityInstrumentationTestCase2<HomeActiv
 		assertTrue(solo.searchButton("Create New Character"));
 		PowerMock.verifyAll();
 	}
+	
+	public void testLoadExistingCharactersShouldShowNoProfiles(){
+		EasyMock.expect(mockDb.getProfiles()).andReturn(new Profile[0]);
+		PowerMock.replayAll();
+		solo.clickOnButton("Load Existing Character");
+		assertTrue(solo.searchText("No Profiles"));
+		PowerMock.verifyAll();
+	}
+	
+	public void testLoadExistingCharactersShouldShowProfiles(){
+		EasyMock.expect(mockDb.getProfiles()).andReturn(new Profile[]{new Profile("Tester", 1)});
+		PowerMock.replayAll();
+		solo.clickOnButton("Load Existing Character");
+		assertTrue(solo.searchText("Tester"));
+		PowerMock.verifyAll();
+	}
+	
     
     public void tearDown() throws Exception {
 
