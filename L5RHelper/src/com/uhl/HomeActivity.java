@@ -13,22 +13,17 @@ public class HomeActivity extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        RegisterButtons();
-    }
-    
-    public HomeActivity(){
-    	
+        registerButtons();
     }
 
-
-	private void RegisterButtons() {
-		(this.<Button>GetView(R.id.create_new)).setOnClickListener(this);
-		(this.<Button>GetView(R.id.load_existing)).setOnClickListener(this);
+	private void registerButtons() {
+		(this.<Button>getView(R.id.create_new)).setOnClickListener(this);
+		(this.<Button>getView(R.id.load_existing)).setOnClickListener(this);
 	}
 
 
 	@SuppressWarnings("unchecked")
-	public <T extends View> T GetView(int id) {
+	public <T extends View> T getView(int id) {
 		T result = null;
 		try{			
 			result = (T)findViewById(id);}
@@ -40,7 +35,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View e) {		
-		Button button = this.<Button>GetView(e.getId());		
+		Button button = this.<Button>getView(e.getId());		
 		switch(button.getId()){
 			case R.id.create_new:StartActivity(EditCharacterActivity.class);break; 
 			case R.id.load_existing:StartActivity(LoadProfileView.class);break;

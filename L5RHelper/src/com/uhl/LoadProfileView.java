@@ -23,7 +23,7 @@ public class LoadProfileView extends ListActivity {
 	  
 	  dbHelper = DBServiceLocator.getDBHelper(this);
 	  
-	  BuildUserTable();
+	  buildProfileTable();
 	  String[] names = new String[profiles.keySet().size()];
 	  profiles.keySet().toArray(names);
 
@@ -37,12 +37,12 @@ public class LoadProfileView extends ListActivity {
 	        int position, long id) {
 	    		int value = profiles.get((String)((TextView) view).getText());
 	    		if ( value == -1) return;
-	    		StartActivity(ProfileOverviewActivity.class, value );
+	    		startActivity(ProfileOverviewActivity.class, value );
 	    }
 	  });
 	}
 	
-	private void StartActivity(Class<?> classInput, Integer Id) {
+	private void startActivity(Class<?> classInput, Integer Id) {
 		Intent intent = new Intent(this, classInput);
 		intent.putExtra("ID", Id);
 		this.startActivityForResult(intent, 0);
@@ -54,7 +54,7 @@ public class LoadProfileView extends ListActivity {
 		this.finish();
 	}
 	
-	private void BuildUserTable() {
+	private void buildProfileTable() {
 		Profile[] profileSet = dbHelper.getProfiles();
 		if(profileSet.length < 1){
 			profiles.put("No Profiles", -1);
@@ -63,9 +63,6 @@ public class LoadProfileView extends ListActivity {
 		for(Profile profile : profileSet){
 			profiles.put(profile.getName(), profile.getId());			
 		}
-		
-		
-		
 	}
 
 	private IDBHelper dbHelper;

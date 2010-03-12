@@ -36,4 +36,33 @@ public class RaisesTest extends AndroidTestCase {
 				0, 0), 50);
 		assertEquals(10, raises);
 	}
+	
+	public void testCalculateRangeShouldHandleRange0(){
+		Context testContext = getContext();
+		double[] actual = Raises.CalculateRange(testContext, new Roll(10,5), 0, 20);
+		assertEquals(1, actual.length);
+		assertEquals(99.91, actual[0]);
+	}
+	
+	public void testCalculateRangeShouldHandleRange1(){
+		Context testContext = getContext();
+		double[] actual = Raises.CalculateRange(testContext, new Roll(10,5), 1, 20);
+		assertEquals(3, actual.length);
+		assertEquals(99.91, actual[1]);
+	}
+	
+	public void testCalculateRangeShouldHandleRange3(){
+		Context testContext = getContext();
+		double[] actual = Raises.CalculateRange(testContext, new Roll(10,5), 3, 20);
+		assertEquals(7, actual.length);
+		assertEquals(99.91, actual[3]);
+	}
+	
+	public void testCalculateRangeShouldHandleRange3TN10(){
+		Context testContext = getContext();
+		double[] actual = Raises.CalculateRange(testContext, new Roll(10,5), 3, 10);
+		assertEquals(7, actual.length);
+		assertEquals(99.91, actual[5]);
+	}
+	
 }

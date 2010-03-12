@@ -147,7 +147,6 @@ public class DBHelper extends SQLiteOpenHelper implements IDBHelper {
 	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
 		onCreate(arg0);
 	}
-	//Is this the proper place for these?
 	/* (non-Javadoc)
 	 * @see com.uhl.db.IDBHelper#saveProfile(com.uhl.db.Profile)
 	 */
