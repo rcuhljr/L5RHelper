@@ -17,12 +17,12 @@ import com.uhl.test.utils.ProfileEquals;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 
-public class HomeActivityTest extends ActivityInstrumentationTestCase2<HomeActivity> {
+public class CreateAndLoadProfileTest extends ActivityInstrumentationTestCase2<HomeActivity> {
 
 	private Solo solo;	
 	private IDBHelper mockDb;
 	
-	public HomeActivityTest() {
+	public CreateAndLoadProfileTest() {
 		super("com.uhl", HomeActivity.class);		
 	}
 		
