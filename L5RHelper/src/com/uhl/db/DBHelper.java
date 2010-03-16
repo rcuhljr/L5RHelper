@@ -197,6 +197,7 @@ public class DBHelper extends SQLiteOpenHelper implements IDBHelper {
 		cursor.moveToFirst();
 		this.close();
 		Profile result = new Profile(cursor);
+		cursor.close();
 		return result;
 		
 	}

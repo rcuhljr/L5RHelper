@@ -34,8 +34,7 @@ public class Profile {
 		setReflexes(cursor.getInt(8));
 		setAgility(cursor.getInt(9));
 		setLuck(cursor.getInt(10));
-		setGp(cursor.getInt(11));
-		cursor.close();
+		setGp(cursor.getInt(11));		
 	}
 	
 	public void SetStats(int eRing, int wRing, int fRing, int aRing, int vRing, int ref, int agi, int luck, int gp){
@@ -145,4 +144,20 @@ public class Profile {
 	public int getGp() {
 		return gp;
 	}
+	
+	public Profile clone(){
+		Profile result = new Profile(this.name.toString(), this.defaultViewId);
+		result.setId(this.getId());
+		result.SetStats(this.getEarthRing(),
+				this.getWaterRing(), 
+				this.getFireRing(), 
+				this.getAirRing(), 
+				this.getVoidRing(), 
+				this.getReflexes(), 
+				this.getAgility(), 
+				this.getLuck(),	 
+				this.getGp());
+		return result;
+	}
+	
 }

@@ -1,5 +1,6 @@
 package com.uhl.test.utils;
 
+import org.easymock.EasyMock;
 import org.easymock.IArgumentMatcher;
 
 import com.uhl.db.Profile;
@@ -10,6 +11,12 @@ public class ProfileEquals implements IArgumentMatcher {
 	
 	public ProfileEquals(Profile e){
 		expected = e;
+	}
+	
+	
+	public static Profile eqProfile(Profile in){
+		EasyMock.reportMatcher(new ProfileEquals(in));
+		return null;
 	}
 	
 	@Override

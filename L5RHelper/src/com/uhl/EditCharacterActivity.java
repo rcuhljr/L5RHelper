@@ -27,7 +27,7 @@ public class EditCharacterActivity extends Activity implements OnClickListener{
         	id = info.getInt("ID");
         }else { id = 0;}
         if(id != 0){
-        	profile = dbHelper.loadProfile(getIntent().getExtras().getInt("ID"));
+        	profile = dbHelper.loadProfile(id);
         	existingProfile = true;
         	configName();
         }else{
@@ -95,21 +95,21 @@ public class EditCharacterActivity extends Activity implements OnClickListener{
 		if(eRing > 0)
 			profile.setEarthRing(eRing);
 		if(wRing > 0)
-			profile.setEarthRing(wRing);
+			profile.setWaterRing(wRing);
 		if(fRing > 0)
-			profile.setEarthRing(fRing);
+			profile.setFireRing(fRing);
 		if(aRing > 0)
-			profile.setEarthRing(aRing);
+			profile.setAirRing(aRing);
 		if(vRing > 0)
-			profile.setEarthRing(vRing);
+			profile.setVoidRing(vRing);
 		if(ref > 0)
-			profile.setEarthRing(ref);
+			profile.setReflexes(ref);
 		if(agi > 0)
-			profile.setEarthRing(agi);
+			profile.setAgility(agi);
 		if(luck > 0)
-			profile.setEarthRing(luck);
+			profile.setLuck((luck));
 		if(gp > 0)
-			profile.setEarthRing(gp);
+			profile.setGp(gp);
 		
 		dbHelper.saveProfile(profile);
 		//#todo transition to character loaded main screen.
@@ -138,7 +138,7 @@ public class EditCharacterActivity extends Activity implements OnClickListener{
 	private void SubmitPressed() {
 		EditText nameBox = this.<EditText>GetView(R.id.char_name); 
 		String name = nameBox.getText().toString();
-		if(name == null || name .equals("")){
+		if(name == null || name.equals("")){
 			errorLabel.setText(getString(R.string.error_no_name));
 			return;
 		}

@@ -1,7 +1,5 @@
 package com.uhl.test;
 
-
-
 import java.util.ArrayList;
 
 import org.easymock.EasyMock;
@@ -53,17 +51,12 @@ public class CreateAndLoadProfileTest extends ActivityInstrumentationTestCase2<H
 		assertTrue(solo.searchText("Name Cannot Be Blank"));
 	}
 	
-	public static Profile eqProfile(Profile in){
-		EasyMock.reportMatcher(new ProfileEquals(in));
-		return null;
-	}
-	
 	public void testCreateMeleeCharacterShouldWorkWithValidName(){		 
-		Profile testProfile = new Profile("Tester", -1);		
-		testProfile.setDefaultViewId(1);		
+		Profile testProfile = new Profile("Tester", 1);		
+		testProfile.setId(-1);	
 		testProfile.SetStats(3, 3, 3, 3, 3, 3, 3, 0, 0);		
 		EasyMock.expect(mockDb.profileNameExists("Tester", -1)).andReturn(false);		
-		EasyMock.expect(mockDb.saveProfile(eqProfile(testProfile))).andReturn(true);
+		EasyMock.expect(mockDb.saveProfile(ProfileEquals.eqProfile(testProfile))).andReturn(true);
 		PowerMock.replayAll();
 		solo.clickOnButton("Create New Character");
 		assertTrue(solo.searchText("Character Name"));
@@ -77,11 +70,11 @@ public class CreateAndLoadProfileTest extends ActivityInstrumentationTestCase2<H
 	}
 	
 	public void testCreateCasterCharacterShouldWorkWithValidName(){		 
-		Profile testProfile = new Profile("Tester", -1);		
-		testProfile.setDefaultViewId(2);		
+		Profile testProfile = new Profile("Tester", 2);		
+		testProfile.setId(-1);
 		testProfile.SetStats(3, 3, 3, 3, 3, 3, 3, 0, 0);		
 		EasyMock.expect(mockDb.profileNameExists("Tester", -1)).andReturn(false);		
-		EasyMock.expect(mockDb.saveProfile(eqProfile(testProfile))).andReturn(true);
+		EasyMock.expect(mockDb.saveProfile(ProfileEquals.eqProfile(testProfile))).andReturn(true);
 		PowerMock.replayAll();
 		solo.clickOnButton("Create New Character");
 		assertTrue(solo.searchText("Character Name"));
@@ -120,6 +113,7 @@ public class CreateAndLoadProfileTest extends ActivityInstrumentationTestCase2<H
                 e.printStackTrace();
         }
         getActivity().finish();
+        mockDb = null;
         super.tearDown();
    }
 
