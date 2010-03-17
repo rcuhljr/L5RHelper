@@ -37,8 +37,8 @@ public class CreateAndLoadProfileTest extends ActivityInstrumentationTestCase2<H
 		solo.clickOnButton("Create New Character");		
 		solo.enterText(solo.getCurrentEditTexts().get(0).getId(), "A Test Name");
 		ArrayList<View> views = solo.getViews();
-		solo.clickOnScreen(views.get(9));	
-		solo.clickOnScreen(solo.getCurrentButtons().get(0));
+		solo.clickOnView(views.get(9));	
+		solo.clickOnButton("Create Character");
 		assertTrue(solo.searchText("Name in use"));
 		PowerMock.verifyAll();
 	}
@@ -46,8 +46,8 @@ public class CreateAndLoadProfileTest extends ActivityInstrumentationTestCase2<H
 	public void testCreateCharacterShouldDetectEmptyName(){
 		solo.clickOnButton("Create New Character");		
 		ArrayList<View> views = solo.getViews();
-		solo.clickOnScreen(views.get(9));	
-		solo.clickOnScreen(solo.getCurrentButtons().get(0));
+		solo.clickOnView(views.get(9));	
+		solo.clickOnButton("Create Character");
 		assertTrue(solo.searchText("Name Cannot Be Blank"));
 	}
 	
@@ -62,9 +62,9 @@ public class CreateAndLoadProfileTest extends ActivityInstrumentationTestCase2<H
 		assertTrue(solo.searchText("Character Name"));
 		solo.enterText(solo.getCurrentEditTexts().get(0).getId(), "Tester");
 		ArrayList<View> views = solo.getViews();
-		solo.clickOnScreen(views.get(9));	
-		solo.clickOnScreen(solo.getCurrentButtons().get(0));
-		solo.clickOnScreen(solo.getCurrentButtons().get(0));
+		solo.clickOnView(views.get(9));	
+		solo.clickOnButton("Create Character");
+		solo.clickOnButton("Submit");
 		assertTrue(solo.searchButton("Create New Character"));
 		PowerMock.verifyAll();
 	}
@@ -80,9 +80,9 @@ public class CreateAndLoadProfileTest extends ActivityInstrumentationTestCase2<H
 		assertTrue(solo.searchText("Character Name"));
 		solo.enterText(solo.getCurrentEditTexts().get(0).getId(), "Tester");
 		ArrayList<View> views = solo.getViews();
-		solo.clickOnScreen(views.get(10));	
-		solo.clickOnScreen(solo.getCurrentButtons().get(0));
-		solo.clickOnScreen(solo.getCurrentButtons().get(0));
+		solo.clickOnView(views.get(10));	
+		solo.clickOnButton("Create Character");
+		solo.clickOnButton("Submit");
 		assertTrue(solo.searchButton("Create New Character"));
 		PowerMock.verifyAll();
 	}

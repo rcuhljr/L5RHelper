@@ -8,6 +8,7 @@ import com.uhl.db.Profile;
 public class ProfileEquals implements IArgumentMatcher {
 
 	private Profile expected;
+	private Profile a;
 	
 	public ProfileEquals(Profile e){
 		expected = e;
@@ -22,7 +23,52 @@ public class ProfileEquals implements IArgumentMatcher {
 	@Override
 	public void appendTo(StringBuffer buffer) {
 		buffer.append("eqProfile(");
-		buffer.append(expected.getClass().getName());
+		buffer.append(expected.getName());
+		buffer.append(",");
+		buffer.append(expected.getAgility());
+		buffer.append(",");
+		buffer.append(expected.getAirRing());
+		buffer.append(",");
+		buffer.append(expected.getDefaultViewId());
+		buffer.append(",");
+		buffer.append(expected.getEarthRing());
+		buffer.append(",");
+		buffer.append(expected.getFireRing());
+		buffer.append(",");
+		buffer.append(expected.getGp());
+		buffer.append(",");
+		buffer.append(expected.getId());
+		buffer.append(",");
+		buffer.append(expected.getLuck());
+		buffer.append(",");
+		buffer.append(expected.getReflexes());
+		buffer.append(",");
+		buffer.append(expected.getVoidRing());
+		buffer.append(",");
+		buffer.append(expected.getWaterRing());
+		buffer.append(",");
+		buffer.append(a.getName());
+		buffer.append(a.getAgility());
+		buffer.append(",");
+		buffer.append(a.getAirRing());
+		buffer.append(",");
+		buffer.append(a.getDefaultViewId());
+		buffer.append(",");
+		buffer.append(a.getEarthRing());
+		buffer.append(",");
+		buffer.append(a.getFireRing());
+		buffer.append(",");
+		buffer.append(a.getGp());
+		buffer.append(",");
+		buffer.append(a.getId());
+		buffer.append(",");
+		buffer.append(a.getLuck());
+		buffer.append(",");
+		buffer.append(a.getReflexes());
+		buffer.append(",");
+		buffer.append(a.getVoidRing());
+		buffer.append(",");
+		buffer.append(a.getWaterRing());
 		buffer.append(")");
 	}
 
@@ -31,7 +77,7 @@ public class ProfileEquals implements IArgumentMatcher {
 		if(!(actual instanceof Profile)){
 			return false;
 		}
-		Profile a = (Profile)actual;
+		a = (Profile)actual;
 		boolean result = true;
 		
 		result &= expected.getAgility() == a.getAgility();

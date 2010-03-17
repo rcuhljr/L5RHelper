@@ -90,7 +90,7 @@ public class EditExistingProfileTest extends ActivityInstrumentationTestCase2<Ed
 		EasyMock.expect(mockDb.saveProfile(ProfileEquals.eqProfile(testProfile))).andReturn(true);
 		PowerMock.replayAll();
 		assertTrue(solo.searchEditText("Tester"));
-		solo.clickOnScreen(solo.getCurrentButtons().get(2));
+		solo.clickOnView(solo.getCurrentButtons().get(2));
 		assertTrue(solo.searchButton("Submit"));
 		ArrayList<Spinner> spinners = solo.getCurrentSpinners();
 		for(Spinner spinner : spinners){
@@ -111,7 +111,7 @@ public class EditExistingProfileTest extends ActivityInstrumentationTestCase2<Ed
 		EasyMock.expect(mockDb.saveProfile(ProfileEquals.eqProfile(testProfile))).andReturn(true);
 		PowerMock.replayAll();
 		assertTrue(solo.searchEditText("Tester"));
-		solo.clickOnScreen(solo.getCurrentButtons().get(2));
+		solo.clickOnView(solo.getCurrentButtons().get(2));
 		assertTrue(solo.searchButton("Submit"));
 		ArrayList<Spinner> spinners = solo.getCurrentSpinners();
 		for(Spinner spinner : spinners){
@@ -134,7 +134,7 @@ public void testEditCharacterShouldPersistChangesWithProfile1(){
 		EasyMock.expect(mockDb.saveProfile(ProfileEquals.eqProfile(testProfile))).andReturn(true);
 		PowerMock.replayAll();
 		assertTrue(solo.searchEditText("Tester"));
-		solo.clickOnScreen(solo.getCurrentButtons().get(2));
+		solo.clickOnButton("Create Character");
 		assertTrue(solo.searchButton("Submit"));
 		ArrayList<Spinner> spinners = solo.getCurrentSpinners();
 		for(Spinner spinner : spinners){
@@ -144,7 +144,7 @@ public void testEditCharacterShouldPersistChangesWithProfile1(){
 		}		
 		for(int i = 0; i < spinners.size(); i++){
 			if(spinners.get(i).getId() == com.uhl.R.id.spin_agility){
-				solo.pressSpinnerItem(i, 0);
+				solo.pressSpinnerItem(i, 2);
 			}else if(spinners.get(i).getId() == com.uhl.R.id.spin_luck){
 				solo.pressSpinnerItem(i, -1);
 			}
