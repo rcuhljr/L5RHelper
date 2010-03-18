@@ -22,6 +22,14 @@ public class Profile {
 		this.setDefaultViewId(defaultView);
 	}
 	
+	public String toString(){
+		
+		return String.format("(id:%s,name:%s,viewId:%s,earth:%s,water:%s,fire:%s,air:%s,void:%s,ref:%s,agility:%s,luck:%s,gp:%s)", 
+				this.getId(), this.getName(), this.getDefaultViewId(), this.getEarthRing(), this.getWaterRing(), 
+				this.getFireRing(), this.getAirRing(), this.getVoidRing(), this.getReflexes(), this.getAgility(), 
+				this.getLuck(), this.getGp());
+	}
+	
 	public Profile(Cursor cursor){
 		setId(cursor.getInt(0));
 		setName(cursor.getString(1));
@@ -159,5 +167,7 @@ public class Profile {
 				this.getGp());
 		return result;
 	}
+	
+
 	
 }

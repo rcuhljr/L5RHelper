@@ -1,6 +1,7 @@
 package com.uhl.test;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import org.easymock.EasyMock;
 import org.powermock.api.easymock.PowerMock;
@@ -14,6 +15,7 @@ import com.uhl.db.DBServiceLocator;
 import com.uhl.db.IDBHelper;
 import com.uhl.db.Profile;
 import com.uhl.test.utils.ProfileEquals;
+import com.uhl.test.utils.SoloUtilities;
 
 
 public class EditExistingProfileTest extends ActivityInstrumentationTestCase2<EditCharacterActivity>{
@@ -24,7 +26,6 @@ public class EditExistingProfileTest extends ActivityInstrumentationTestCase2<Ed
 
 	public EditExistingProfileTest() {
 		super("com.uhl", EditCharacterActivity.class);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void setUp(){
@@ -137,18 +138,14 @@ public void testEditCharacterShouldPersistChangesWithProfile1(){
 		solo.clickOnButton("Create Character");
 		assertTrue(solo.searchButton("Submit"));
 		ArrayList<Spinner> spinners = solo.getCurrentSpinners();
-		for(Spinner spinner : spinners){
-			if(spinner != null){
-				assertTrue(spinner.getSelectedItemPosition() == 1);
-			}
-		}		
-		for(int i = 0; i < spinners.size(); i++){
-			if(spinners.get(i).getId() == com.uhl.R.id.spin_agility){
-				solo.pressSpinnerItem(i, 2);
-			}else if(spinners.get(i).getId() == com.uhl.R.id.spin_luck){
-				solo.pressSpinnerItem(i, -1);
-			}
-		}
+		
+		Hashtable<Integer, Integer> moves = new Hashtable<Integer, Integer>();
+		
+		moves.put(com.uhl.R.id.spin_agility, 2);
+		moves.put(com.uhl.R.id.spin_luck, -1);
+		
+		SoloUtilities.moveSpinners(solo, spinners, moves);
+		
 		assertFalse(solo.getCurrentActivity().isFinishing());
 		solo.clickOnButton("Submit");
 		assertTrue(solo.getCurrentActivity().isFinishing());

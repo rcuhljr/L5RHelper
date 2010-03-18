@@ -22,53 +22,14 @@ public class ProfileEquals implements IArgumentMatcher {
 	
 	@Override
 	public void appendTo(StringBuffer buffer) {
-		buffer.append("eqProfile(");
-		buffer.append(expected.getName());
-		buffer.append(",");
-		buffer.append(expected.getAgility());
-		buffer.append(",");
-		buffer.append(expected.getAirRing());
-		buffer.append(",");
-		buffer.append(expected.getDefaultViewId());
-		buffer.append(",");
-		buffer.append(expected.getEarthRing());
-		buffer.append(",");
-		buffer.append(expected.getFireRing());
-		buffer.append(",");
-		buffer.append(expected.getGp());
-		buffer.append(",");
-		buffer.append(expected.getId());
-		buffer.append(",");
-		buffer.append(expected.getLuck());
-		buffer.append(",");
-		buffer.append(expected.getReflexes());
-		buffer.append(",");
-		buffer.append(expected.getVoidRing());
-		buffer.append(",");
-		buffer.append(expected.getWaterRing());
-		buffer.append(",");
-		buffer.append(a.getName());
-		buffer.append(a.getAgility());
-		buffer.append(",");
-		buffer.append(a.getAirRing());
-		buffer.append(",");
-		buffer.append(a.getDefaultViewId());
-		buffer.append(",");
-		buffer.append(a.getEarthRing());
-		buffer.append(",");
-		buffer.append(a.getFireRing());
-		buffer.append(",");
-		buffer.append(a.getGp());
-		buffer.append(",");
-		buffer.append(a.getId());
-		buffer.append(",");
-		buffer.append(a.getLuck());
-		buffer.append(",");
-		buffer.append(a.getReflexes());
-		buffer.append(",");
-		buffer.append(a.getVoidRing());
-		buffer.append(",");
-		buffer.append(a.getWaterRing());
+		buffer.append("eqProfile(expected:");
+		if(expected != null){
+			buffer.append(expected.toString());
+		}
+		buffer.append("actual:");
+		if(a != null){
+			buffer.append(a.toString());
+		}
 		buffer.append(")");
 	}
 
