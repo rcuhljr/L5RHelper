@@ -6,8 +6,8 @@ Bob selects Toki from the list of his characters.
 Bob see's toki's roll,  misc bonus window with a '0' a Target number window,
 A confidence window prefilled with '95%'  an unchecked 'use luck' checkbox   
 On the bottom half of the screen are a series of boxes under the heading 'Templates' labeled "katana" "extra attack" "void" "bitterlies x1" "bitterlies x2"
-"bitterlies x3" "bitterlies x4" "Opponent Missed", "Sozen Str/Agi +5" and
- "Add New Template" all unselected except katana.  Bob selects Opponent Missed template and the total roll shows +20 more static bonus
+"bitterlies x3" "bitterlies x4" "Opponent Missed", "Sozen Str/Agi +5" (add/edit templates context menu here)
+ all unselected except katana.  Bob selects Opponent Missed template and the total roll shows +20 more static bonus
  Bob enters 55 for Target Tn and hits calculate. The program pops up that '5 raises can be called with a 95% chance of hitting' Bob presses Ok and is returned to
  the previous screen.
 
@@ -72,6 +72,9 @@ EG      1, 1, Normal, 1, 1
 rollChoices
     oid
     Confidence
+    range
+    rank
+    tntbh
     misc value
     useluck    
   
@@ -81,20 +84,23 @@ Templates
     profileId
     name
     NULLABLE
-    Earth Ring, Water Ring, Fire Ring, Air Ring, Reflexes, Agility number(4) #Decide if these should be a seperate table like bonuses based off them.
+    Reflexes, Agility number(4) 
     weapon skill level
     useReflexes?
     isGpSkill?
     FreeRaises
     rolled dice
     kept dice
-TemplateRing/TraitBonus
+TemplateRing/TraitBonus Not currently used.
     TemplateId
     Ring/traitId
     multiplier
     
     
 #TODO
+
+    Get a hosting site. Setup database extensibility. Version to 0.5.0 beta with the above as todo's, collect feedback.
+
     setup state maintenance to handle sleeping/suspending. from http://developer.android.com/reference/android/app/Activity.html#SavingPersistentState
     "any edits a user makes are effectively made immediately without requiring an additional confirmation step. 
      Supporting this model is generally a simple matter of following two rules:
@@ -115,4 +121,8 @@ TemplateRing/TraitBonus
     Set up defaults/favorites options.
     
     replace zeros with empty text boxes.
+    
+    Implement above and process feedback from beta
+    
+    Version to 1.0.0, release to market.
     
