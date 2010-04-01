@@ -230,7 +230,8 @@ public class DBHelper extends SQLiteOpenHelper implements IDBHelper {
 		this.close();		
 		Profile[] result = new Profile[cursor.getCount()];
 		for(int i = 0; i < cursor.getCount(); i++){
-			result[i] = new Profile(cursor.getString(1), cursor.getInt(0));
+			result[i] = new Profile(cursor.getString(1), 0);
+			result[i].setId(cursor.getInt(0));
 			cursor.moveToNext();
 		}
 		cursor.close();

@@ -31,7 +31,7 @@ public class EditCharacterActivity extends Activity implements OnClickListener{
         	existingProfile = true;
         	configName();
         }else{
-        	profile = new Profile(null, -1);
+        	profile = new Profile(null, 1);        	
         }
         RegisterButtons();
         
